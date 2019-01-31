@@ -1,0 +1,14 @@
+[package]
+name = "nspire"
+description = "Rust library for interacting with Ndless for the TI-Nspire"
+version = "0.1.0"
+repository = "https://github.com/lights0123/nspire"
+license = "MIT OR Apache-2.0"
+authors = ["lights0123 <developer@lights0123.com>"]
+edition = "2018"
+
+[dependencies]
+cty = "0.1.5"
+cstr_core = { version = "0.1.2", features = ["alloc"] }
+ndless-sys = "0.1.1"
+
