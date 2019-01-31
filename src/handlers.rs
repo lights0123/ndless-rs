@@ -1,5 +1,6 @@
 use crate::prelude::*;
 
+#[cfg(not(feature = "disable-eh-personality"))]
 #[lang = "eh_personality"]
 extern fn eh_personality() {}
 
