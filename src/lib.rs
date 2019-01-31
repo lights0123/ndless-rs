@@ -1,8 +1,5 @@
 #![no_std]
 #![feature(alloc)]
-#![feature(lang_items)]
-#![feature(alloc_error_handler)]
-#![feature(panic_info_message)]
 extern crate alloc;
 
 use core::alloc::{GlobalAlloc, Layout};
@@ -11,7 +8,6 @@ use cty::c_void;
 
 pub use bindings::*;
 
-mod handlers;
 mod bindings;
 
 pub mod prelude {
