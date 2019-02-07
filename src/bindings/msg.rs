@@ -138,7 +138,7 @@ pub fn msg_input(
     let msg = cstr!(msg.into());
     let default = cstr!(default.into());
     let mut ptr: *mut cty::c_char = core::ptr::null_mut();
-    match unsafe {
+    let ret = match unsafe {
         ndless_sys::show_msg_user_input(title.as_ptr(), msg.as_ptr(), default.as_ptr(), &mut ptr)
     } {
         -1 => None,
@@ -152,5 +152,7 @@ pub fn msg_input(
                 .into_owned(),
             )
         },
-    }
+    };
+    unsafe { ndless_sys::free(ptr as *mut cty::c_void) };
+    ret
 }

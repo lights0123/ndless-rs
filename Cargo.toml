@@ -10,6 +10,6 @@ edition = "2018"
 [dependencies]
 cty = "0.1.5"
 cstr_core = { version = "0.1.2", features = ["alloc"] }
-ndless-sys = "0.1.2"
+ndless-sys = "0.1.3"
 ndless-macros = "0.1.0"
 ndless-static-vars = "1.0.0"

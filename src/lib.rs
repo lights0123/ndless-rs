@@ -1,6 +1,7 @@
 #![no_std]
 #![feature(alloc)]
 #![feature(core_intrinsics)]
+#![feature(maybe_uninit)]
 pub extern crate alloc;
 
 pub use alloc::{borrow, boxed, collections, fmt, rc, slice, str, string, sync, vec};
@@ -10,8 +11,9 @@ pub use core::{
 	u64, u8,
 };
 
-pub use bindings::*;
 pub use ndless_static_vars::ARGUMENTS;
+
+pub use bindings::*;
 
 mod bindings;
 
@@ -41,6 +43,7 @@ pub mod prelude {
 	pub use alloc::vec;
 
 	pub use ndless_macros::entry;
+
 	pub use print;
 	pub use println;
 
