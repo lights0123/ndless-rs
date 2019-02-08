@@ -2,6 +2,7 @@
 #![feature(alloc)]
 #![feature(core_intrinsics)]
 #![feature(maybe_uninit)]
+#![feature(asm)]
 pub extern crate alloc;
 
 pub use alloc::{borrow, boxed, collections, fmt, rc, slice, str, string, sync, vec};

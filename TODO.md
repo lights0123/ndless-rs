@@ -10,7 +10,7 @@ and should work on every Ndless version.
 
 ## Ndless
 
-- [ ] `void assert_ndless_rev(unsigned required_rev)`: Since v3.1 r617.
+- [x] `void assert_ndless_rev(unsigned required_rev)`: Since v3.1 r617.
     Displays a popup asking to update Ndless if the Ndless revision on
     the calculator is less than *required\_rev*, and exits the program.
     Does nothing if the revision is greater or equal than
@@ -71,7 +71,7 @@ Available screen types (as of r2004):
     max_value2)`: since v3.1 r607. Request popup for two numeric inputs.
     Caution, values like -1 or 0 for *min\_value* will cancel the popup.
     Returns 1 if OK, 0 if cancelled.
-- [ ] `void refresh_osscr(void)`: since v3.1. Must be called at the end of
+- [x] `void refresh_osscr(void)`: since v3.1. Must be called at the end of
     a program that creates or deletes files, to update the OS document
     browser.
 
@@ -124,7 +124,7 @@ function. Returns -1 on error, 0 if success.
 
 ## CPU
 
-- [ ] `void clear_cache(void)`: flush the data cache and invalidate the
+- [x] `void clear_cache(void)`: flush the data cache and invalidate the
     instruction and data caches of the processor. Should be called
     before loading code dynamically, after a code patch or with
     self-modifying code.
@@ -140,7 +140,7 @@ function. Returns -1 on error, 0 if success.
 - [x] `BOOL is_touchpad`: `TRUE` on a TI-Nspire Touchpad or on a TI-Nspire
     CX.
 - [x] `unsigned hwtype()`: 0 on classic TI-Nspire, 1 on TI-Nspire CX.
-- [x] `IO()`: select an I/O port whose mapping depends on the hardware
+- [ ] `IO()`: select an I/O port whose mapping depends on the hardware
     type. Fo example `IO(0xDC00000C, 0xDC0000010)` will return
     0xDC00000C on classic TI-Nspire, 0xDC0000010 on CX. Returns a
     *volatile unsigned\**.
@@ -164,7 +164,7 @@ function. Returns -1 on error, 0 if success.
 
 ## Debugging
 
-- [ ] `void bkpt()`: software breakpoint. Make the emulator halt and open
+- [x] `void bkpt()`: software breakpoint. Make the emulator halt and open
     the debugger. Remove before transferring to a calculator, as it will
     crash if executed.
 
@@ -173,7 +173,7 @@ function. Returns -1 on error, 0 if success.
 Ndless exposes internal features and states throw the nl\_\*()
 functions.
 
-- [ ] `BOOL nl_isstartup(void)`: (since v3.1 r540) returns TRUE if the
+- [x] `BOOL nl_isstartup(void)`: (since v3.1 r540) returns TRUE if the
     program is currently being run at OS startup. See the [User
     Guide](http://ndlessly.wordpress.com/ndless-user-guide/#startup).
 - [ ] `int nl_osvalue(const int values[], unsigned size)`: returns the
@@ -183,11 +183,11 @@ functions.
     to CAS CX 3.1, values\[4\] to CM-C 3.1, values\[5\] to CAS CM-C 3.1,
     values\[6\] to non-CAS 3.6, values\[7\] to CAS 3.6, values\[8\] to
     non-CAS CX 3.6, values\[9\] to CAS CX 3.6.
-- [ ] `void nl_set_resident(void)`: (since v3.1 r553) see [Resident
+- [x] `void nl_set_resident(void)`: (since v3.1 r553) see [Resident
     programs]
 - [ ] `void nl_no_scr_redraw(void)`: (since v3.1 r756) don't restore the
     screen on program exit
-- [ ] `BOOL nl_loaded_by_3rd_party_loader(void)`: (since v3.1 r791) return
+- [x] `BOOL nl_loaded_by_3rd_party_loader(void)`: (since v3.1 r791) return
     TRUE if a third-party Launcher was used to boot the OS, such as
     nLaunch/nLaunchy
 - [ ] `int nl_exec(const char *prgm_path, int argsn, char *args[])`:
@@ -200,11 +200,6 @@ functions.
     `args[]` may be respectively 0 and NULL.
 
 ## Deprecated
-
-### Common types
-
-Deprecated. Use \#include \<stdbool.h\> instead. `typedef enum bool
-{FALSE = 0, TRUE = 1} BOOL;`
 
 ### Old screen API
 

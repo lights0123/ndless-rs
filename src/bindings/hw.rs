@@ -17,20 +17,32 @@ pub fn hw_subtype() -> u32 {
 	unsafe { ndless_sys::nl_hwsubtype() }
 }
 
+/// since Ndless v3.1. TRUE on classic TI-Nspire.
+///
+/// This is the preferred way to check CX/CM-specific features.
 pub fn is_classic() -> bool {
 	unsafe { ndless_sys::hwtype() < 1 }
 }
 
+/// since Ndless v3.1 r863. TRUE on TI-Nspire CM/CM-C.
 pub fn is_cm() -> bool {
 	hw_subtype() == 1
 }
 
+/// since Ndless v3.1. TRUE if the device has a screen in color.
 pub fn has_colors() -> bool {
 	!is_classic()
 }
 
+/// TRUE on a TI-Nspire Touchpad or on a TI-Nspire CX.
 pub fn has_touchpad() -> bool {
 	unsafe { ndless_sys::_is_touchpad() > 0 }
+}
+
+/// flush the data cache and invalidate the instruction and data caches of the processor. Should be
+/// called before loading code dynamically, after a code patch or with self-modifying code.
+pub fn clear_cache() {
+	unsafe {ndless_sys::clear_cache()}
 }
 
 pub mod screen {
