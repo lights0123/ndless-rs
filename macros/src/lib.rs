@@ -42,6 +42,7 @@ pub fn entry(args: TokenStream, input: TokenStream) -> TokenStream {
     quote!(
         #[export_name = "main"]
         #(#attrs)*
+        #[allow(clippy::not_unsafe_ptr_arg_deref)]
         pub fn #name(argc: ::ndless::cty::c_int, argv: *const *const ::ndless::cty::c_char) #ret {
 			{
 				let args: &[*const ::ndless::cty::c_char] = unsafe { ::core::slice::from_raw_parts(argv, argc as usize) };
