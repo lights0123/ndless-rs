@@ -15,7 +15,6 @@ pub trait Float {
     /// assert_eq!(f.floor(), 3.0);
     /// assert_eq!(g.floor(), 3.0);
     /// ```
-    #[inline]
     fn floor(self) -> Self;
 
     /// Returns the smallest integer greater than or equal to a number.
@@ -29,7 +28,6 @@ pub trait Float {
     /// assert_eq!(f.ceil(), 4.0);
     /// assert_eq!(g.ceil(), 4.0);
     /// ```
-    #[inline]
     fn ceil(self) -> Self;
 
     /// Returns the nearest integer to a number. Round half-way cases away from
@@ -44,7 +42,6 @@ pub trait Float {
     /// assert_eq!(f.round(), 3.0);
     /// assert_eq!(g.round(), -3.0);
     /// ```
-    #[inline]
     fn round(self) -> Self;
 
     /// Returns the integer part of a number.
@@ -58,7 +55,6 @@ pub trait Float {
     /// assert_eq!(f.trunc(), 3.0);
     /// assert_eq!(g.trunc(), -3.0);
     /// ```
-    #[inline]
     fn trunc(self) -> Self;
 
     /// Returns the fractional part of a number.
@@ -74,7 +70,6 @@ pub trait Float {
     /// assert!(abs_difference_x < 1e-10);
     /// assert!(abs_difference_y < 1e-10);
     /// ```
-    #[inline]
     fn fract(self) -> Self;
 
     /// Computes the absolute value of `self`. Returns `NAN` if the
@@ -96,7 +91,6 @@ pub trait Float {
     ///
     /// assert!(f64::NAN.abs().is_nan());
     /// ```
-    #[inline]
     fn abs(self) -> Self;
 
     /// Returns a number that represents the sign of `self`.
@@ -117,7 +111,6 @@ pub trait Float {
     ///
     /// assert!(f64::NAN.signum().is_nan());
     /// ```
-    #[inline]
     fn signum(self) -> Self;
 
     /// Returns a number composed of the magnitude of `self` and the sign of
@@ -142,7 +135,6 @@ pub trait Float {
     ///
     /// assert!(f64::NAN.copysign(1.0).is_nan());
     /// ```
-    #[inline]
     #[must_use]
     fn copysign(self, y: Self) -> Self;
 
@@ -164,7 +156,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn mul_add(self, a: Self, b: Self) -> Self;
 
     /// Calculates Euclidean division, the matching method for `mod_euc`.
@@ -185,7 +176,6 @@ pub trait Float {
     /// assert_eq!(a.div_euc(-b), -1.0); // 7.0 >= -4.0 * -1.0
     /// assert_eq!((-a).div_euc(-b), 2.0); // -7.0 >= -4.0 * 2.0
     /// ```
-    #[inline]
     fn div_euc(self, rhs: Self) -> Self;
 
     /// Calculates the Euclidean modulo (self mod rhs), which is never negative.
@@ -212,7 +202,6 @@ pub trait Float {
     /// // limitation due to round-off error
     /// assert!((-std::f64::EPSILON).mod_euc(3.0) != 0.0);
     /// ```
-    #[inline]
     fn mod_euc(self, rhs: Self) -> Self;
 
     /// Raises a number to an integer power.
@@ -227,7 +216,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn powi(self, n: i32) -> Self;
 
     /// Raises a number to a floating point power.
@@ -240,7 +228,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn powf(self, n: Self) -> Self;
 
     /// Takes the square root of a number.
@@ -258,7 +245,6 @@ pub trait Float {
     /// assert!(abs_difference < 1e-10);
     /// assert!(negative.sqrt().is_nan());
     /// ```
-    #[inline]
     fn sqrt(self) -> Self;
 
     /// Returns `e^(self)`, (the exponential function).
@@ -275,7 +261,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn exp(self) -> Self;
 
     /// Returns `2^(self)`.
@@ -290,7 +275,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn exp2(self) -> Self;
 
     /// Returns the natural logarithm of the number.
@@ -307,7 +291,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn ln(self) -> Self;
 
     /// Returns the logarithm of the number with respect to an arbitrary base.
@@ -326,7 +309,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn log(self, base: Self) -> Self;
 
     /// Returns the base 2 logarithm of the number.
@@ -341,7 +323,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn log2(self) -> Self;
 
     /// Returns the base 10 logarithm of the number.
@@ -356,7 +337,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn log10(self) -> Self;
 
     /// The positive difference of two numbers.
@@ -376,7 +356,6 @@ pub trait Float {
     /// assert!(abs_difference_x < 1e-10);
     /// assert!(abs_difference_y < 1e-10);
     /// ```
-    #[inline]
     #[deprecated(
         since = "1.10.0",
         note = "you probably meant `(self - other).abs()`: \
@@ -400,7 +379,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn cbrt(self) -> Self;
 
     /// Calculates the length of the hypotenuse of a right-angle triangle given
@@ -417,7 +395,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn hypot(self, other: Self) -> Self;
 
     /// Computes the sine of a number (in radians).
@@ -433,7 +410,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn sin(self) -> Self;
 
     /// Computes the cosine of a number (in radians).
@@ -449,7 +425,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn cos(self) -> Self;
 
     /// Computes the tangent of a number (in radians).
@@ -464,7 +439,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-14);
     /// ```
-    #[inline]
     fn tan(self) -> Self;
 
     /// Computes the arcsine of a number. Return value is in radians in
@@ -483,7 +457,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn asin(self) -> Self;
 
     /// Computes the arccosine of a number. Return value is in radians in
@@ -502,7 +475,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn acos(self) -> Self;
 
     /// Computes the arctangent of a number. Return value is in radians in the
@@ -518,7 +490,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn atan(self) -> Self;
 
     /// Computes the four quadrant arctangent of `self` (`y`) and `other` (`x`) in radians.
@@ -550,7 +521,6 @@ pub trait Float {
     /// assert!(abs_difference_1 < 1e-10);
     /// assert!(abs_difference_2 < 1e-10);
     /// ```
-    #[inline]
     fn atan2(self, other: Self) -> Self;
 
     /// Simultaneously computes the sine and cosine of the number, `x`. Returns
@@ -570,7 +540,6 @@ pub trait Float {
     /// assert!(abs_difference_0 < 1e-10);
     /// assert!(abs_difference_1 < 1e-10);
     /// ```
-    #[inline]
     fn sin_cos(self) -> (Self, Self)
     where
         Self: Sized;
@@ -588,7 +557,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn exp_m1(self) -> Self;
 
     /// Returns `ln(1+n)` (natural logarithm) more accurately than if
@@ -606,7 +574,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn ln_1p(self) -> Self;
 
     /// Hyperbolic sine function.
@@ -626,7 +593,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1e-10);
     /// ```
-    #[inline]
     fn sinh(self) -> Self;
 
     /// Hyperbolic cosine function.
@@ -646,7 +612,6 @@ pub trait Float {
     /// // Same result
     /// assert!(abs_difference < 1.0e-10);
     /// ```
-    #[inline]
     fn cosh(self) -> Self;
 
     /// Hyperbolic tangent function.
@@ -666,7 +631,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1.0e-10);
     /// ```
-    #[inline]
     fn tanh(self) -> Self;
 
     /// Inverse hyperbolic sine function.
@@ -681,7 +645,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1.0e-10);
     /// ```
-    #[inline]
     fn asinh(self) -> Self;
 
     /// Inverse hyperbolic cosine function.
@@ -696,7 +659,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1.0e-10);
     /// ```
-    #[inline]
     fn acosh(self) -> Self;
 
     /// Inverse hyperbolic tangent function.
@@ -713,7 +675,6 @@ pub trait Float {
     ///
     /// assert!(abs_difference < 1.0e-10);
     /// ```
-    #[inline]
     fn atanh(self) -> Self;
 }
 

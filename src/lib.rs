@@ -30,12 +30,27 @@ pub mod cty {
 
 #[macro_export]
 macro_rules! print {
-	($($arg:tt)*) => ($crate::out::print(format_args!($($arg)*)));
+	($($arg:tt)*) => ($crate::out::print(format!($($arg)*)));
 }
 
 #[macro_export]
 macro_rules! println {
-	($($arg:tt)*) => ($crate::out::println(format!($($arg)*)));
+	($($arg:tt)*) => ($crate::out::println($crate::prelude::format!($($arg)*)));
+}
+
+#[macro_export]
+macro_rules! dbg {
+    ($val:expr) => {
+        // Use of `match` here is intentional because it affects the lifetimes
+        // of temporaries - https://stackoverflow.com/a/48732525/1063961
+        match $val {
+            tmp => {
+                println!("[{}:{}] {} = {:#?}",
+                    file!(), line!(), stringify!($val), &tmp);
+                tmp
+            }
+        }
+    }
 }
 
 pub mod prelude {
@@ -47,6 +62,7 @@ pub mod prelude {
 
 	pub use print;
 	pub use println;
+	pub use dbg;
 
 	pub use crate::math::Float;
 }

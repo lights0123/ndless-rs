@@ -72,8 +72,7 @@ pub fn msg_numeric(
     title: impl Into<String>,
     subtitle: impl Into<String>,
     msg: impl Into<String>,
-    min: i32,
-    max: i32,
+    range: (i32, i32),
 ) -> Option<i32> {
     let title = cstr!(title.into());
     let subtitle = cstr!(subtitle.into());
@@ -85,8 +84,8 @@ pub fn msg_numeric(
             subtitle.as_ptr(),
             msg.as_ptr(),
             &mut num,
-            min,
-            max,
+            range.0,
+            range.1,
         )
     } {
         1 => Some(num),
@@ -98,11 +97,9 @@ pub fn msg_2numeric(
     title: impl Into<String>,
     subtitle: impl Into<String>,
     msg1: impl Into<String>,
-    min1: i32,
-    max1: i32,
+    range1: (i32, i32),
     msg2: impl Into<String>,
-    min2: i32,
-    max2: i32,
+    range2: (i32, i32),
 ) -> Option<(i32, i32)> {
     let title = cstr!(title.into());
     let subtitle = cstr!(subtitle.into());
@@ -116,12 +113,12 @@ pub fn msg_2numeric(
             subtitle.as_ptr(),
             msg1.as_ptr(),
             &mut num1,
-            min1,
-            max1,
+            range1.0,
+            range1.1,
             msg2.as_ptr(),
             &mut num2,
-            min2,
-            max2,
+            range2.0,
+            range2.1,
         )
     } {
         1 => Some((num1, num2)),

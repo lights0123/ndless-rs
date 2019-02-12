@@ -121,7 +121,7 @@ pub enum Key {
 
 impl Key {
 	fn from_arrow(arrow: u8) -> Option<Self> {
-		match arrow as u32 {
+		match u32::from(arrow) {
 			ndless_sys::tpad_arrow_TPAD_ARROW_CLICK => Some(Key::Click),
 			ndless_sys::tpad_arrow_TPAD_ARROW_UP => Some(Key::Up),
 			ndless_sys::tpad_arrow_TPAD_ARROW_UPRIGHT => Some(Key::UpRight),
@@ -457,7 +457,7 @@ pub mod touchpad {
 
 	pub fn get_touchpad_info() -> Result<touchpad_info, ()> {
 		match unsafe { ndless_sys::touchpad_getinfo().as_ref() } {
-			Some(ret) => Ok(ret.clone()),
+			Some(ret) => Ok(*ret),
 			None => Err(()),
 		}
 	}
