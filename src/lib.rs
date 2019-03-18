@@ -1,5 +1,5 @@
 #![no_std]
-#![feature(alloc)]
+#![feature(alloc, alloc_prelude)]
 #![feature(core_intrinsics)]
 #![feature(maybe_uninit)]
 #![feature(asm)]
@@ -55,7 +55,7 @@ macro_rules! dbg {
 
 pub mod prelude {
 	pub use alloc::format;
-	pub use alloc::prelude::*;
+	pub use alloc::prelude::v1::*;
 	pub use alloc::vec;
 
 	pub use ndless_macros::entry;

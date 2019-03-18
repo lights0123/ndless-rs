@@ -411,10 +411,8 @@ pub fn wait_no_key_pressed() {
 }
 
 pub mod touchpad {
-	use core::mem::MaybeUninit;
-
 	pub use ndless_sys::touchpad_info_t as touchpad_info;
-	use ndless_sys::touchpad_report_t;
+	use ndless_sys::touchpad_report_t as touchpad_report;
 
 	use super::Key;
 
@@ -430,8 +428,8 @@ pub mod touchpad {
 		pub arrow: Option<Key>,
 	}
 
-	impl From<touchpad_report_t> for TouchpadReport {
-		fn from(report: touchpad_report_t) -> Self {
+	impl From<touchpad_report> for TouchpadReport {
+		fn from(report: touchpad_report) -> Self {
 			Self {
 				contact: report.contact > 0, // A C bool is often represented as a char with a nonzero value
 				proximity: report.proximity,
@@ -446,9 +444,18 @@ pub mod touchpad {
 	}
 
 	pub fn touchpad_scan() -> Result<TouchpadReport, i32> {
-		let mut report = MaybeUninit::<ndless_sys::touchpad_report_t>::zeroed();
-		let status = unsafe { ndless_sys::touchpad_scan(report.as_mut_ptr()) };
-		let report = unsafe { report.into_inner() };
+		let mut report = touchpad_report {
+			contact: 0,
+			proximity: 0,
+			x: 0,
+			y: 0,
+			x_velocity: 0,
+			y_velocity: 0,
+			dummy: 0,
+			pressed: 0,
+			arrow: 0
+		};
+		let status = unsafe { ndless_sys::touchpad_scan(&mut report) };
 		match status {
 			0 => Ok(report.into()),
 			x => Err(x),
