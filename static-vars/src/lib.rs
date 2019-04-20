@@ -1,7 +1,10 @@
 #![no_std]
-#![feature(alloc)]
-extern crate alloc;
 
-use alloc::prelude::*;
+pub enum ProgramState {
+	Normal,
+	Resident,
+}
 
-pub static mut ARGUMENTS: Option<Vec<String>> = None;
+pub static mut PROGRAM_STATE: ProgramState = ProgramState::Normal;
+
+pub static mut ARGUMENTS: Option<&[*const cty::c_char]> = None;
