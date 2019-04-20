@@ -3,7 +3,7 @@ use core::intrinsics;
 use ndless_sys as cmath;
 
 /// Copy and pasted from Rust std
-pub trait Float {
+pub trait Float: Sized {
     /// Returns the largest integer less than or equal to a number.
     ///
     /// # Examples
@@ -200,7 +200,7 @@ pub trait Float {
     /// assert_eq!(a.mod_euc(-b), 3.0);
     /// assert_eq!((-a).mod_euc(-b), 1.0);
     /// // limitation due to round-off error
-    /// assert!((-std::f64::EPSILON).mod_euc(3.0) != 0.0);
+    /// assert_ne!((-std::f64::EPSILON).mod_euc(3.0), 0.0);
     /// ```
     fn mod_euc(self, rhs: Self) -> Self;
 
@@ -357,7 +357,6 @@ pub trait Float {
     /// assert!(abs_difference_y < 1e-10);
     /// ```
     #[deprecated(
-        since = "1.10.0",
         note = "you probably meant `(self - other).abs()`: \
                 this operation is `(self - other).max(0.0)` (also \
                 known as `fdim` in C). If you truly need the positive \

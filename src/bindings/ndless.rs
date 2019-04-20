@@ -10,13 +10,19 @@ pub fn is_startup() -> bool {
 /// will reset. This function will do nothing if compiled in release mode, allowing you to leave
 /// this in when compiling for an actual calculator.
 pub fn bkpt() {
-	if cfg!(debug_assertions) { unsafe { asm!(".long 0xE1212374") } }
+	if cfg!(debug_assertions) {
+		unsafe { asm!(".long 0xE1212374") }
+	}
 }
 
 /// See
 /// [Hackspire](https://hackspire.org/index.php/Ndless_features_and_limitations#Resident_programs)
 pub fn set_resident() {
-	unsafe { ndless_sys::nl_set_resident() }
+	unsafe {
+		ndless_sys::nl_set_resident();
+		ndless_static_vars::ARGUMENTS = None;
+		ndless_static_vars::PROGRAM_STATE = ndless_static_vars::ProgramState::Resident;
+	}
 }
 
 /// Must be called at the end of a program that creates or deletes files,

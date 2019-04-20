@@ -15,24 +15,19 @@ pub enum Button {
     THREE = 3,
 }
 
-pub fn msg(title: impl Into<String>, msg: impl Into<String>) {
-    let title = cstr!(title.into());
-    let msg = cstr!(msg.into());
+pub fn msg(title: &str, msg: &str) {
+    let title = cstr!(title);
+    let msg = cstr!(msg);
     unsafe {
         _show_msgbox(title.as_ptr(), msg.as_ptr(), 0);
     }
 }
 
-pub fn msg_2b(
-    title: impl Into<String>,
-    msg: impl Into<String>,
-    btn1: impl Into<String>,
-    btn2: impl Into<String>,
-) -> Button {
-    let title = cstr!(title.into());
-    let msg = cstr!(msg.into());
-    let btn1 = cstr!(btn1.into());
-    let btn2 = cstr!(btn2.into());
+pub fn msg_2b(title: &str, msg: &str, btn1: &str, btn2: &str) -> Button {
+    let title = cstr!(title);
+    let msg = cstr!(msg);
+    let btn1 = cstr!(btn1);
+    let btn2 = cstr!(btn2);
     unsafe {
         transmute(_show_msgbox(
             title.as_ptr(),
@@ -44,18 +39,12 @@ pub fn msg_2b(
     }
 }
 
-pub fn msg_3b(
-    title: impl Into<String>,
-    msg: impl Into<String>,
-    btn1: impl Into<String>,
-    btn2: impl Into<String>,
-    btn3: impl Into<String>,
-) -> Button {
-    let title = cstr!(title.into());
-    let msg = cstr!(msg.into());
-    let btn1 = cstr!(btn1.into());
-    let btn2 = cstr!(btn2.into());
-    let btn3 = cstr!(btn3.into());
+pub fn msg_3b(title: &str, msg: &str, btn1: &str, btn2: &str, btn3: &str) -> Button {
+    let title = cstr!(title);
+    let msg = cstr!(msg);
+    let btn1 = cstr!(btn1);
+    let btn2 = cstr!(btn2);
+    let btn3 = cstr!(btn3);
     unsafe {
         transmute(_show_msgbox(
             title.as_ptr(),
@@ -68,15 +57,10 @@ pub fn msg_3b(
     }
 }
 
-pub fn msg_numeric(
-    title: impl Into<String>,
-    subtitle: impl Into<String>,
-    msg: impl Into<String>,
-    range: (i32, i32),
-) -> Option<i32> {
-    let title = cstr!(title.into());
-    let subtitle = cstr!(subtitle.into());
-    let msg = cstr!(msg.into());
+pub fn msg_numeric(title: &str, subtitle: &str, msg: &str, range: (i32, i32)) -> Option<i32> {
+    let title = cstr!(title);
+    let subtitle = cstr!(subtitle);
+    let msg = cstr!(msg);
     let mut num = 0i32;
     match unsafe {
         ndless_sys::show_1numeric_input(
@@ -94,17 +78,17 @@ pub fn msg_numeric(
 }
 
 pub fn msg_2numeric(
-    title: impl Into<String>,
-    subtitle: impl Into<String>,
-    msg1: impl Into<String>,
+    title: &str,
+    subtitle: &str,
+    msg1: &str,
     range1: (i32, i32),
-    msg2: impl Into<String>,
+    msg2: &str,
     range2: (i32, i32),
 ) -> Option<(i32, i32)> {
-    let title = cstr!(title.into());
-    let subtitle = cstr!(subtitle.into());
-    let msg1 = cstr!(msg1.into());
-    let msg2 = cstr!(msg2.into());
+    let title = cstr!(title);
+    let subtitle = cstr!(subtitle);
+    let msg1 = cstr!(msg1);
+    let msg2 = cstr!(msg2);
     let mut num1 = 0i32;
     let mut num2 = 0i32;
     match unsafe {
@@ -126,14 +110,10 @@ pub fn msg_2numeric(
     }
 }
 
-pub fn msg_input(
-    title: impl Into<String>,
-    msg: impl Into<String>,
-    default: impl Into<String>,
-) -> Option<String> {
-    let title = cstr!(title.into());
-    let msg = cstr!(msg.into());
-    let default = cstr!(default.into());
+pub fn msg_input(title: &str, msg: &str, default: &str) -> Option<String> {
+    let title = cstr!(title);
+    let msg = cstr!(msg);
+    let default = cstr!(default);
     let mut ptr: *mut cty::c_char = core::ptr::null_mut();
     let ret = match unsafe {
         ndless_sys::show_msg_user_input(title.as_ptr(), msg.as_ptr(), default.as_ptr(), &mut ptr)
