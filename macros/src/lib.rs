@@ -38,18 +38,23 @@ pub fn entry(args: TokenStream, input: TokenStream) -> TokenStream {
 	let stmts = f.block.stmts;
 	let ret = f.decl.output;
 	let name = f.ident;
+	let unsafety = f.unsafety;
+	let vis = f.vis;
 
 	quote!(
         #[export_name = "main"]
+        unsafe fn __ndless_start(argc: ::ndless::cty::c_int, argv: *const *const ::ndless::cty::c_char) -> ::ndless::cty::c_int {
+            let args: &[*const ::ndless::cty::c_char] = unsafe { ::core::slice::from_raw_parts(argv, argc as usize) };
+			unsafe { ::ndless::ARGUMENTS = ::core::option::Option::Some(args) }
+			::ndless::env::args()
+				.next()
+				.map(::ndless::path::PathBuf::from)
+				.and_then(|path| path.parent().map(::ndless::env::set_current_dir));
+			::ndless::process::Termination::report(#name())
+        }
+
         #(#attrs)*
-        #[allow(clippy::not_unsafe_ptr_arg_deref)]
-        pub fn #name(argc: ::ndless::cty::c_int, argv: *const *const ::ndless::cty::c_char) #ret {
-			{
-				let args: &[*const ::ndless::cty::c_char] = unsafe { ::core::slice::from_raw_parts(argv, argc as usize) };
-				unsafe { ::ndless::ARGUMENTS = ::core::option::Option::Some(args) }
-			}
-			let argc = ();
-			let argv = ();
+        #vis #unsafety fn #name() #ret {
             #(#stmts)*
         }
     )
