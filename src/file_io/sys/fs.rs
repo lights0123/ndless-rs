@@ -484,8 +484,6 @@ pub fn stat(p: &Path) -> io::Result<FileAttr> {
 	let p = cstr(p)?;
 	let mut stat: nuc_stat = unsafe { mem::zeroed() };
 	cvt(unsafe { nuc_stat(p.as_ptr(), &mut stat) })?;
-	let msg = alloc::format!("stat: {:#?}\n", stat);
-	unsafe { libc::write(1, msg.as_ptr() as _, msg.len()) };
 	Ok(FileAttr { stat })
 }
 
