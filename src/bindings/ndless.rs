@@ -1,3 +1,6 @@
+//! # Various ndless-related functions
+//! This module contains functions that configure miscellaneous settings used in ndless.
+
 pub fn assert_ndless_rev(required_version: u32) {
 	unsafe { ndless_sys::assert_ndless_rev(required_version) }
 }
@@ -19,9 +22,11 @@ pub fn bkpt() {
 /// [Hackspire](https://hackspire.org/index.php/Ndless_features_and_limitations#Resident_programs)
 pub fn set_resident() {
 	unsafe {
-		ndless_sys::nl_set_resident();
-		ndless_static_vars::ARGUMENTS = None;
-		ndless_static_vars::PROGRAM_STATE = ndless_static_vars::ProgramState::Resident;
+		if ndless_static_vars::PROGRAM_STATE == ndless_static_vars::ProgramState::Normal {
+			ndless_sys::nl_set_resident();
+			ndless_static_vars::ARGUMENTS = None;
+			ndless_static_vars::PROGRAM_STATE = ndless_static_vars::ProgramState::Resident;
+		}
 	}
 }
 

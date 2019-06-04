@@ -117,10 +117,11 @@ Available screen types (as of r2004):
 
 ## Filesystem
 
-- [ ] `int enable_relative_paths(char **argv)`: since r820. Call before using
+- [x] `int enable_relative_paths(char **argv)`: since r820. Call before using
 `fopen()` and other file-related functions with paths relative to the
 current program. `argv` should be the `argv` parameter of the `main()`
 function. Returns -1 on error, 0 if success.
+- [ ] `fstat`
 
 ## CPU
 
@@ -151,7 +152,7 @@ function. Returns -1 on error, 0 if success.
     interrupt occurs. The use of this function is encouraged when
     waiting in loops for an event to save the batteries. Changing the
     timer frequency have effects on the latency of this function.
-- [ ] `void msleep(unsigned ms)`: delay for a specified amount of time in
+- [x] `void msleep(unsigned ms)`: delay for a specified amount of time in
     ms. The CPU is regularly switched to low-power state while blocking.
     Note that the `sleep` function has been removed.
 

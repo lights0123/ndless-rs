@@ -1,3 +1,5 @@
+//! Only supports sleeping—threads are not supported in ndless.
+
 use core::time::Duration;
 
 /// Puts the current thread to sleep for at least the specified amount of time.
@@ -18,5 +20,7 @@ use core::time::Duration;
 /// thread::sleep(ten_millis);
 /// ```
 pub fn sleep(dur: Duration) {
-	unsafe { ndless_sys::msleep(dur.as_millis() as u32); }
+	unsafe {
+		ndless_sys::msleep(dur.as_millis() as u32);
+	}
 }

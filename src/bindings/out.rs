@@ -1,24 +1,12 @@
-use core::fmt::{Error, Write};
+//! # Serial output
+//! This module contains tools to output to the serial port. Also, take a look at
+//! [io::stdout](crate::io::stdout).
 
-pub fn print(msg: &str) {
-    unsafe {
-        // Instead of allocating a C-style string, we tell printf the length to output
-        ndless_sys::printf("%.*s\0".as_ptr() as *const cty::c_char, msg.len(), msg);
-    }
-}
+use core::fmt::Arguments;
 
-pub fn println(msg: &str) {
-    unsafe {
-        // Instead of allocating a C-style string, we tell printf the length to output
-        ndless_sys::printf("%.*s\n\0".as_ptr() as *const cty::c_char, msg.len(), msg);
-    }
-}
+use crate::io;
+use crate::io::Write;
 
-pub struct STDOut {}
-
-impl Write for STDOut {
-    fn write_str(&mut self, s: &str) -> Result<(), Error> {
-        print(s);
-        Ok(())
-    }
+pub fn print_fmt(fmt: Arguments) -> core::fmt::Result {
+	io::stdout().write_fmt(fmt).map_err(|_| core::fmt::Error)
 }
