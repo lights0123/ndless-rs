@@ -79,3 +79,8 @@ pub mod screen {
 		}
 	}
 }
+
+/// Go to sleep until an interrupt occurs
+pub fn idle() {
+	unsafe { ndless_sys::idle() }
+}

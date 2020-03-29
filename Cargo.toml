@@ -1,8 +1,9 @@
 [package]
 name = "ndless"
 description = "Rust library for interacting with Ndless for the TI-Nspire"
-version = "0.8.1"
+version = "0.8.2"
 repository = "https://github.com/lights0123/ndless-rs"
+homepage = "https://lights0123.com/ndless-rust/"
 license = "MIT OR Apache-2.0"
 authors = ["lights0123 <developer@lights0123.com>"]
 edition = "2018"

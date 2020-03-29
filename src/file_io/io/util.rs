@@ -2,7 +2,7 @@
 
 use crate::io::{self, BufRead, ErrorKind, Initializer, IoSlice, IoSliceMut, Read, Write};
 use core::fmt;
-use core::mem;
+use core::mem::MaybeUninit;
 
 /// Copies the entire contents of a reader into a writer.
 ///
@@ -44,21 +44,25 @@ where
 	R: Read,
 	W: Write,
 {
-	let mut buf = unsafe {
-		let mut buf: [u8; super::DEFAULT_BUF_SIZE] = mem::uninitialized();
-		reader.initializer().initialize(&mut buf);
-		buf
-	};
+	let mut buf = MaybeUninit::<[u8; super::DEFAULT_BUF_SIZE]>::uninit();
+	// FIXME(#53491): This is calling `get_mut` and `get_ref` on an uninitialized
+	// `MaybeUninit`. Revisit this once we decided whether that is valid or not.
+	// This is still technically undefined behavior due to creating a reference
+	// to uninitialized data, but within libstd we can rely on more guarantees
+	// than if this code were in an external lib.
+	unsafe {
+		reader.initializer().initialize(buf.get_mut());
+	}
 
 	let mut written = 0;
 	loop {
-		let len = match reader.read(&mut buf) {
+		let len = match reader.read(unsafe { buf.get_mut() }) {
 			Ok(0) => return Ok(written),
 			Ok(len) => len,
 			Err(ref e) if e.kind() == ErrorKind::Interrupted => continue,
 			Err(e) => return Err(e),
 		};
-		writer.write_all(&buf[..len])?;
+		writer.write_all(unsafe { &buf.get_ref()[..len] })?;
 		written += len as u64;
 	}
 }

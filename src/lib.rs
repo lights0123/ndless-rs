@@ -5,11 +5,12 @@
 //! [here]: https://github.com/lights0123/example-nspire
 //! [book]: https://lights0123.com/ndless-rust/index.html
 #![no_std]
+#![allow(clippy::tabs_in_doc_comments, clippy::needless_doctest_main)]
 #![feature(alloc_prelude, allocator_api)]
 #![feature(core_intrinsics)]
-#![feature(non_exhaustive)]
 #![feature(asm)]
 #![feature(never_type)]
+#![feature(maybe_uninit_ref)]
 pub extern crate alloc;
 
 pub use ndless_static_vars::ARGUMENTS;
@@ -70,7 +71,6 @@ macro_rules! dbg {
         ($($crate::dbg!($val)),+,)
     };
 }
-
 
 pub mod prelude {
 	//! # Ndless prelude
