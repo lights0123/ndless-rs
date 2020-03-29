@@ -6,7 +6,7 @@ use core::future::Future;
 use core::sync::atomic::{AtomicBool, Ordering};
 use core::task::{Context, Poll, Waker};
 
-use pin_utils::pin_mut;
+use futures_util::pin_mut;
 
 use ndless::hw::idle;
 
@@ -17,6 +17,7 @@ pub fn block_on<T>(listeners: &AsyncListeners, task: impl Future<Output = T>) ->
 	let waker = Waker::from(Arc::new(TaskWaker { wake_marker: wake_marker.clone() }));
 	let mut context = Context::from_waker(&waker);
 	pin_mut!(task);
+	let mut task = task;
 	loop {
 		listeners.keypad.poll();
 		if wake_marker.load(Ordering::Relaxed) {

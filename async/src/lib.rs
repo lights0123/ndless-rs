@@ -3,3 +3,4 @@
 extern crate alloc;
 pub mod executor;
 pub mod keypad;
+pub mod mpsc;
