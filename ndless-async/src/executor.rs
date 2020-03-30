@@ -25,10 +25,7 @@
 //! }
 //! ```
 
-use alloc::{
-	sync::Arc,
-	task::Wake
-};
+use alloc::{sync::Arc, task::Wake};
 use core::future::Future;
 use core::sync::atomic::{AtomicBool, Ordering};
 use core::task::{Context, Poll, Waker};
@@ -38,14 +35,16 @@ use futures_util::pin_mut;
 use ndless::hw::idle;
 use ndless::timer::disable_sleep;
 
-use crate::keypad::{KeypadListener, KeyStream};
+use crate::keypad::{KeyStream, KeypadListener};
 use crate::timer::TimerListener;
 use crate::yield_now::{Yield, YieldListener};
 
 /// Spawns a task and blocks until the future resolves, returning its result.
 pub fn block_on<T>(listeners: &AsyncListeners, task: impl Future<Output = T>) -> T {
 	let wake_marker = Arc::new(AtomicBool::new(true));
-	let waker = Waker::from(Arc::new(TaskWaker { wake_marker: wake_marker.clone() }));
+	let waker = Waker::from(Arc::new(TaskWaker {
+		wake_marker: wake_marker.clone(),
+	}));
 	let mut context = Context::from_waker(&waker);
 	pin_mut!(task);
 	let mut task = task;
@@ -117,12 +116,16 @@ impl AsyncListeners {
 	}
 	/// Returns a [`TimerListener`] instance, which may be used to schedule
 	/// timers.
-	pub fn timer(&self) -> &TimerListener { &self.timer }
+	pub fn timer(&self) -> &TimerListener {
+		&self.timer
+	}
 	/// Allows other tasks to run before coming back to this one. Useful when
 	/// doing something computationally intensive, to allow things like keyboard
 	/// handlers and timers to run. Note that the calculator will not go to
 	/// sleep if this is called in a loop. Use [`timer`][AsyncListeners::timer]
 	/// instead if a delay is desired between each iteration. If no other tasks
 	/// are scheduled, this task is continued immediately.
-	pub fn yield_now(&self) -> Yield { self.yielder.yield_now() }
+	pub fn yield_now(&self) -> Yield {
+		self.yielder.yield_now()
+	}
 }

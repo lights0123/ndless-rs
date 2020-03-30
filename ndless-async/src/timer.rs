@@ -38,14 +38,19 @@ impl TimerListener {
 		let mut timers = self.timers.borrow_mut();
 		timers.retain(|timer| Rc::strong_count(timer) > 1);
 		timers.iter().for_each(|timer| {
-			if has_time_passed(timer.at_tick) { timer.waker.wake(); }
+			if has_time_passed(timer.at_tick) {
+				timer.waker.wake();
+			}
 		})
 	}
 	pub(crate) fn config_sleep(&self) {
 		let half_max = 2u32.pow(31);
 		let mut timers = self.timers.borrow_mut();
 		timers.retain(|timer| Rc::strong_count(timer) > 1);
-		if let Some(timer) = timers.iter().min_by_key(|timer| timer.at_tick.wrapping_sub(get_ticks()) % half_max) {
+		if let Some(timer) = timers
+			.iter()
+			.min_by_key(|timer| timer.at_tick.wrapping_sub(get_ticks()) % half_max)
+		{
 			configure_sleep(timer.at_tick.wrapping_sub(get_ticks()) % half_max);
 		}
 	}
@@ -75,7 +80,10 @@ impl TimerListener {
 	/// Problems will occur when sleeping for more than 2^31 ticks in the future,
 	/// which is about 18 hours.
 	pub fn sleep_until(&self, ticks: u32) -> Timer {
-		let timer = Rc::new(TimerData { at_tick: ticks, waker: AtomicWaker::new() });
+		let timer = Rc::new(TimerData {
+			at_tick: ticks,
+			waker: AtomicWaker::new(),
+		});
 		let mut timers = self.timers.borrow_mut();
 		timers.push(timer.clone());
 		Timer { timer }

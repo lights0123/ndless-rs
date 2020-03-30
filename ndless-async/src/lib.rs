@@ -2,7 +2,7 @@
 #![no_std]
 extern crate alloc;
 
-pub use futures_util::{FutureExt, join, select_biased, StreamExt, try_join};
+pub use futures_util::{join, select_biased, try_join, FutureExt, StreamExt};
 
 pub use yield_now::Yield;
 

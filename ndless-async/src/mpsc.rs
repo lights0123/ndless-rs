@@ -39,11 +39,13 @@ struct Queue<T> {
 pub fn channel<T>(buffer: usize) -> (Sender<T>, Receiver<T>) {
 	let queue = Rc::new(Queue {
 		queue: ArrayQueue::new(buffer),
-		waker: Default::default()
+		waker: Default::default(),
 	});
 	(
-		Sender { queue: queue.clone() },
-		Receiver { queue }
+		Sender {
+			queue: queue.clone(),
+		},
+		Receiver { queue },
 	)
 }
 
@@ -88,16 +90,14 @@ impl<T> Stream for Receiver<T> {
 	fn poll_next(self: Pin<&mut Self>, cx: &mut Context) -> Poll<Option<Self::Item>> {
 		self.queue.waker.register(&cx.waker());
 		match self.queue.queue.pop() {
-			Ok(data) => {
-				Poll::Ready(Some(data))
-			}
+			Ok(data) => Poll::Ready(Some(data)),
 			_ => {
 				if Rc::strong_count(&self.queue) < 2 {
 					Poll::Ready(None)
 				} else {
 					Poll::Pending
 				}
-			},
+			}
 		}
 	}
 }

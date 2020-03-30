@@ -27,7 +27,10 @@ impl YieldListener {
 		})
 	}
 	pub(crate) fn yield_now(&self) -> Yield {
-		let waker = Rc::new(WakerData { done: Cell::new(false), waker: AtomicWaker::new() });
+		let waker = Rc::new(WakerData {
+			done: Cell::new(false),
+			waker: AtomicWaker::new(),
+		});
 		let mut wakers = self.wakers.borrow_mut();
 		wakers.push(waker.clone());
 		Yield { waker }
@@ -40,7 +43,6 @@ impl YieldListener {
 pub struct Yield {
 	waker: Rc<WakerData>,
 }
-
 
 impl Future for Yield {
 	type Output = ();
