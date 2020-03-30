@@ -1,6 +1,6 @@
 [package]
 name = "ndless-sdl"
-version = "0.1.8"
+version = "0.1.9"
 authors = [
 	"Brian Anderson <banderson@mozilla.com>",
 	"Kang Seonghoon <public+rust@mearie.org>",
@@ -16,8 +16,8 @@ edition = "2018"
 
 [dependencies]
 num = { version = "0.2.0", default-features = false }
-cty = "0.1.5"
+cty = "0.2.1"
 cstr_core = { version = "0.1.2", features = ["alloc"] }
-ndless = "0.7.1"
+ndless = "0.8.2"
 ndless-freetype = "0.1.2"
-unicode-segmentation = "1.2.1"
+unicode-segmentation = "1.6.0"

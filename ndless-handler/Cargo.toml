@@ -9,7 +9,7 @@ authors = ["lights0123 <developer@lights0123.com>"]
 edition = "2018"
 
 [dependencies]
-ndless = "0.8.0"
+ndless = "0.8.2"
 ndless-sys = "0.2.0"
 cty = "0.2.0"
 

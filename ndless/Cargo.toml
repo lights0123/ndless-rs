@@ -14,5 +14,5 @@ embedded-ffi = { version = "0.1.2", features = ["alloc"] }
 cty = "0.2.0"
 cstr_core = { version = "0.1.2", features = ["alloc"] }
 ndless-sys = "0.2.0"
-ndless-macros = {path="../ndless-macros"}
+ndless-macros = "0.4.0"
 ndless-static-vars = "2.0.1"

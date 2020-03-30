@@ -1,3 +1,6 @@
+//! Timer
+//!
+//! Tools for interacting with low-level timers of the nspire.
 #![allow(clippy::unreadable_literal)]
 use core::ptr::{read_volatile, write_volatile};
 
