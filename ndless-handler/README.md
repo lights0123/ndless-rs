@@ -1,12 +1,6 @@
 # ndless-handler
-<p>
-  <a href="https://crates.io/crates/ndless-handler">
-    <img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-handler.svg">
-  </a>
-  <a href="https://docs.rs/ndless-handler">
-    <img alt="Crates.io" src="https://docs.rs/ndless-handler/badge.svg">
-  </a>
-</p>
+[![Crates.io](https://img.shields.io/crates/v/ndless-handler.svg)](https://crates.io/crates/ndless-handler)
+[![Docs.rs](https://docs.rs/ndless-handler/badge.svg)](https://docs.rs/ndless-handler)
 
 Necessary code to use the run Rust code on a TI-Nspire. This crate
 provides the required code for allocation and panics. Check out [ndless]

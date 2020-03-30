@@ -1,12 +1,6 @@
 # ndless-sdl
-<p>
-  <a href="https://crates.io/crates/ndless-sdl">
-    <img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-sdl.svg">
-  </a>
-  <a href="https://docs.rs/ndless-sdl">
-    <img alt="Crates.io" src="https://docs.rs/ndless-sdl/badge.svg">
-  </a>
-</p>
+[![Crates.io](https://img.shields.io/crates/v/ndless-sdl.svg)](https://crates.io/crates/ndless-sdl)
+[![Docs.rs](https://docs.rs/ndless-sdl/badge.svg)](https://docs.rs/ndless-sdl)
 
 Bindings for SDL in Rust
 

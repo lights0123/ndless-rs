@@ -1,12 +1,6 @@
 # ndless-async
-<p>
-  <a href="https://crates.io/crates/ndless-async">
-    <img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-async.svg">
-  </a>
-  <a href="https://docs.rs/ndless-async">
-    <img alt="Crates.io" src="https://docs.rs/ndless/ndless-async.svg">
-  </a>
-</p>
+[![Crates.io](https://img.shields.io/crates/v/ndless-async.svg)](https://crates.io/crates/ndless-async)
+[![Docs.rs](https://docs.rs/ndless-async/badge.svg)](https://docs.rs/ndless-async)
 
 Check out [ndless] in addition to this crate.
 

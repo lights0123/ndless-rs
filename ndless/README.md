@@ -1,12 +1,6 @@
 # ndless
-<p>
-  <a href="https://crates.io/crates/ndless">
-    <img alt="Crates.io" src="https://img.shields.io/crates/v/ndless.svg">
-  </a>
-  <a href="https://docs.rs/ndless">
-    <img alt="Crates.io" src="https://docs.rs/ndless/badge.svg">
-  </a>
-</p>
+[![Crates.io](https://img.shields.io/crates/v/ndless.svg)](https://crates.io/crates/ndless)
+[![Docs.rs](https://docs.rs/ndless/badge.svg)](https://docs.rs/ndless)
 
 Rust bindings to [Ndless] for the TI-Nspire, providing an interface to
 the filesystem, hardware, I/O, and OS functionality.

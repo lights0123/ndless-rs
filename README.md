@@ -16,7 +16,7 @@ interesting crate here is [ndless](ndless).
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless.svg">
 		</a></td>
 		<td><a href="https://docs.rs/ndless">
-			<img alt="Crates.io" src="https://docs.rs/ndless/badge.svg">
+			<img alt="Docs.rs" src="https://docs.rs/ndless/badge.svg">
 		</a></td>
 	</tr>
 	<!--<tr>
@@ -25,7 +25,7 @@ interesting crate here is [ndless](ndless).
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-async.svg">
 		</a></td>
 		<td><a href="https://docs.rs/ndless-async">
-			<img alt="Crates.io" src="https://docs.rs/ndless-async/badge.svg">
+			<img alt="Docs.rs" src="https://docs.rs/ndless-async/badge.svg">
 		</a></td>
 	</tr>-->
 	<tr>
@@ -34,7 +34,7 @@ interesting crate here is [ndless](ndless).
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-freetype.svg">
 		</a></td>
 		<td><a href="https://docs.rs/ndless-freetype">
-			<img alt="Crates.io" src="https://docs.rs/ndless-freetype/badge.svg">
+			<img alt="Docs.rs" src="https://docs.rs/ndless-freetype/badge.svg">
 		</a></td>
 	</tr>
 	<tr>
@@ -43,7 +43,7 @@ interesting crate here is [ndless](ndless).
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-handler.svg">
 		</a></td>
 		<td><a href="https://docs.rs/ndless-handler">
-			<img alt="Crates.io" src="https://docs.rs/ndless-handler/badge.svg">
+			<img alt="Docs.rs" src="https://docs.rs/ndless-handler/badge.svg">
 		</a></td>
 	</tr>
 	<tr>
@@ -52,7 +52,7 @@ interesting crate here is [ndless](ndless).
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-macros.svg">
 		</a></td>
 		<td><a href="https://docs.rs/ndless-macros">
-			<img alt="Crates.io" src="https://docs.rs/ndless-macros/badge.svg">
+			<img alt="Docs.rs" src="https://docs.rs/ndless-macros/badge.svg">
 		</a></td>
 	</tr>
 	<tr>
@@ -61,7 +61,7 @@ interesting crate here is [ndless](ndless).
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-sdl.svg">
 		</a></td>
 		<td><a href="https://docs.rs/ndless-sdl">
-			<img alt="Crates.io" src="https://docs.rs/ndless-sdl/badge.svg">
+			<img alt="Docs.rs" src="https://docs.rs/ndless-sdl/badge.svg">
 		</a></td>
 	</tr>
 	<tr>
@@ -70,7 +70,7 @@ interesting crate here is [ndless](ndless).
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-static-vars.svg">
 		</a></td>
 		<td><a href="https://docs.rs/ndless-static-vars">
-			<img alt="Crates.io" src="https://docs.rs/ndless-static-vars/badge.svg">
+			<img alt="Docs.rs" src="https://docs.rs/ndless-static-vars/badge.svg">
 		</a></td>
 	</tr>
 	<tr>
@@ -79,7 +79,7 @@ interesting crate here is [ndless](ndless).
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-sys.svg">
 		</a></td>
 		<td><a href="https://docs.rs/ndless-sys">
-			<img alt="Crates.io" src="https://docs.rs/ndless-sys/badge.svg">
+			<img alt="Docs.rs" src="https://docs.rs/ndless-sys/badge.svg">
 		</a></td>
 	</tr>
 </table>
