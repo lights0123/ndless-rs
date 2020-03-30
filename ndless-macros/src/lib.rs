@@ -1,4 +1,3 @@
-#![recursion_limit="128"]
 extern crate proc_macro;
 
 use proc_macro::TokenStream;
@@ -12,12 +11,12 @@ use syn::{parse, spanned::Spanned, ItemFn};
 pub fn entry(args: TokenStream, input: TokenStream) -> TokenStream {
 	let f = parse_macro_input!(input as ItemFn);
 	// check the function signature
-	let valid_signature = f.constness.is_none()
-		&& f.abi.is_none()
-		&& f.decl.inputs.is_empty()
-		&& f.decl.generics.params.is_empty()
-		&& f.decl.generics.where_clause.is_none()
-		&& f.decl.variadic.is_none();
+	let valid_signature = f.sig.constness.is_none()
+		&& f.sig.abi.is_none()
+		&& f.sig.inputs.is_empty()
+		&& f.sig.generics.params.is_empty()
+		&& f.sig.generics.where_clause.is_none()
+		&& f.sig.variadic.is_none();
 
 	if !valid_signature {
 		return parse::Error::new(
@@ -36,9 +35,9 @@ pub fn entry(args: TokenStream, input: TokenStream) -> TokenStream {
 
 	let attrs = f.attrs;
 	let stmts = f.block.stmts;
-	let ret = f.decl.output;
-	let name = f.ident;
-	let unsafety = f.unsafety;
+	let ret = f.sig.output;
+	let name = f.sig.ident;
+	let unsafety = f.sig.unsafety;
 	let vis = f.vis;
 
 	quote!(
