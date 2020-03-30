@@ -7,6 +7,7 @@ license = "MIT OR Apache-2.0"
 version = "0.2.1"
 authors = ["lights0123 <developer@lights0123.com>"]
 edition = "2018"
+readme = "README.md"
 
 [dependencies]
 ndless = "0.8.2"

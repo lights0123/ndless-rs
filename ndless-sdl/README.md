@@ -1,16 +1,19 @@
-# Rust-SDL
+# ndless-sdl
+<p>
+  <a href="https://crates.io/crates/ndless-sdl">
+    <img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-sdl.svg">
+  </a>
+  <a href="https://docs.rs/ndless-sdl">
+    <img alt="Crates.io" src="https://docs.rs/ndless-sdl/badge.svg">
+  </a>
+</p>
+
 Bindings for SDL in Rust
-# Overview
 
-Rust-SDL is a library for talking to SDL from Rust. Low-level C components are wrapped in Rust code to make them more idiomatic and abstract away inappropriate manual memory management.
+ndless-sdl is a library for talking to SDL from Rust. In addition, it
+provides optional APIs to a number of common SDL extension libraries.
+Check out [ndless] in addition to this crate.
 
-In addition, it provides optional APIs to a number of common SDL extension libraries.
+[ndless]: https://crates.io/crates/ndless
 
-Rust-SDL uses the MIT license.
-
-# Requirements
-
-* *Rust* - You can get the Rust compiler from http://www.rust-lang.org
-
-# When things go wrong
-Rust, and Rust-SDL, are both still heavily in development, and you may run into teething issues when using this. Before panicking, check that you're using the latest Master branch of Rust, check that you've updated Rust-SDL to the latest version, and run `cargo clean`. If that fails, please let us know on the issue tracker.
+ndless-sdl uses the MIT license.
