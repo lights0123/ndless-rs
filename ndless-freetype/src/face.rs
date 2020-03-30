@@ -1,9 +1,9 @@
 use crate::{ffi, FtResult, GlyphSlot, Matrix, Vector};
 use alloc::borrow::ToOwned;
 use alloc::rc::Rc;
-use cstr_core::CStr;
 use alloc::string::String;
 use alloc::vec::Vec;
+use cstr_core::CStr;
 use std::fmt;
 
 #[repr(u32)]
@@ -346,7 +346,9 @@ impl Face {
 
 impl fmt::Debug for Face {
 	fn fmt(&self, form: &mut fmt::Formatter) -> fmt::Result {
-		let name = self.style_name().unwrap_or_else(||"[unknown name]".to_owned());
+		let name = self
+			.style_name()
+			.unwrap_or_else(|| "[unknown name]".to_owned());
 		form.write_str("Font Face: ")?;
 		form.write_str(&name[..])
 	}

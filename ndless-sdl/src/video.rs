@@ -270,8 +270,10 @@ impl Palette {
 		use self::ll::SDL_Color;
 		let colors = unsafe { (*self.raw).colors } as *const SDL_Color;
 		let ncolors = unsafe { (*self.raw).ncolors } as usize;
-		let colors: &'a [SDL_Color] =
-			unsafe { &*(slice::from_raw_parts(&colors, ncolors) as *const [*const SDL_Color] as *const [SDL_Color]) };
+		let colors: &'a [SDL_Color] = unsafe {
+			&*(slice::from_raw_parts(&colors, ncolors) as *const [*const SDL_Color]
+				as *const [SDL_Color])
+		};
 		colors.iter()
 	}
 }
@@ -612,11 +614,7 @@ impl Surface {
 
 	pub fn update_rects(&self, rects: &[Rect]) {
 		unsafe {
-			ll::SDL_UpdateRects(
-				self.raw,
-				rects.len() as c_int,
-				rects.as_ptr() as *mut Rect,
-			);
+			ll::SDL_UpdateRects(self.raw, rects.len() as c_int, rects.as_ptr() as *mut Rect);
 		}
 	}
 

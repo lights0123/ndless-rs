@@ -1,10 +1,10 @@
 use alloc::rc::Rc;
 use std::ptr::null_mut;
 
-use cstr_core::CString;
-use cty::{c_long, c_void};
 use alloc::string::String;
 use alloc::vec::Vec;
+use cstr_core::CString;
+use cty::{c_long, c_void};
 
 use crate::ffi;
 use crate::{Error, Face, FtResult, Stroker};
@@ -126,11 +126,7 @@ impl Library {
 	}
 
 	/// Similar to `new_memory_face`, but uses statically-available memory
-	pub fn new_static_face(
-		&self,
-		buffer: &'static [u8],
-		face_index: isize,
-	) -> FtResult<Face> {
+	pub fn new_static_face(&self, buffer: &'static [u8], face_index: isize) -> FtResult<Face> {
 		let mut face = null_mut();
 
 		let err = unsafe {

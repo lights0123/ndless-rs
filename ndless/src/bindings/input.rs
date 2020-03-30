@@ -1,9 +1,9 @@
 //! # Getting input from hardware
 //! This contains functionality to get keys pressed, as well as touchpad information.
 
+use crate::alloc::borrow::Borrow;
 use crate::bindings::input::raw_keys::*;
 use crate::prelude::*;
-use crate::alloc::borrow::Borrow;
 
 #[derive(Eq, PartialEq, Debug, Clone, Copy, Hash)]
 #[non_exhaustive]

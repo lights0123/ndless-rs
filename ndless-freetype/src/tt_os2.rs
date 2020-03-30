@@ -11,9 +11,8 @@ impl TrueTypeOS2Table {
 	pub fn from_face(face: &mut Face) -> Option<Self> {
 		unsafe {
 			#[allow(clippy::cast_ptr_alignment)]
-			let os2 =
-				ffi::FT_Get_Sfnt_Table(face.raw_mut() as *mut ffi::FT_FaceRec, ffi::ft_sfnt_os2)
-					as ffi::TT_OS2_Internal;
+			let os2 = ffi::FT_Get_Sfnt_Table(face.raw_mut() as *mut ffi::FT_FaceRec, ffi::ft_sfnt_os2)
+				as ffi::TT_OS2_Internal;
 			if !os2.is_null() && (*os2).version != 0xffff {
 				Some(TrueTypeOS2Table { raw: os2 })
 			} else {

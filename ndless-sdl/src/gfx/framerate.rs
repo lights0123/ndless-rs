@@ -48,8 +48,14 @@ impl FPS {
 		unsafe { ll::SDL_framerateDelay(&mut self.manager) }
 	}
 	pub fn framerate(&mut self, rate: u32) {
-		unsafe { ll::SDL_setFramerate(&mut self.manager, rate); }
+		unsafe {
+			ll::SDL_setFramerate(&mut self.manager, rate);
+		}
 	}
-	pub fn get_framerate(&self) -> u32 { self.manager.rate }
-	pub fn frame_count(&self) -> u32 { self.manager.framecount }
+	pub fn get_framerate(&self) -> u32 {
+		self.manager.rate
+	}
+	pub fn frame_count(&self) -> u32 {
+		self.manager.framecount
+	}
 }

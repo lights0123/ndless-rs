@@ -34,13 +34,7 @@ pub trait Graphics {
 
 	fn draw_ellipse(&self, center: Point, x_radius: i16, y_radius: i16, color: Color);
 	fn draw_filled_ellipse(&self, center: Point, x_radius: i16, y_radius: i16, color: Color);
-	fn draw_antialiased_ellipse(
-		&self,
-		center: Point,
-		x_radius: i16,
-		y_radius: i16,
-		color: Color,
-	);
+	fn draw_antialiased_ellipse(&self, center: Point, x_radius: i16, y_radius: i16, color: Color);
 
 	fn draw_pie(&self, center: Point, radius: i16, start: i16, end: i16, color: Color);
 	fn draw_filled_pie(&self, center: Point, radius: i16, start: i16, end: i16, color: Color);
@@ -64,12 +58,7 @@ pub trait Graphics {
 		self.draw_antialiased_polygon_list(&x[..], &y[..], color)
 	}
 
-	fn draw_textured_polygon(
-		&self,
-		points: &[Point],
-		texture: &Surface,
-		texture_offset: Point,
-	) {
+	fn draw_textured_polygon(&self, points: &[Point], texture: &Surface, texture_offset: Point) {
 		let (x, y): (Vec<_>, Vec<_>) = points.iter().cloned().unzip();
 		self.draw_textured_polygon_list(&x[..], &y[..], texture, texture_offset)
 	}
@@ -298,13 +287,7 @@ impl Graphics for Surface {
 		}
 	}
 
-	fn draw_antialiased_ellipse(
-		&self,
-		center: Point,
-		x_radius: i16,
-		y_radius: i16,
-		color: Color,
-	) {
+	fn draw_antialiased_ellipse(&self, center: Point, x_radius: i16, y_radius: i16, color: Color) {
 		unsafe {
 			ll::aaellipseColor(
 				self.raw,

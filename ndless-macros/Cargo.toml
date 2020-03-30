@@ -7,7 +7,7 @@ edition = "2018"
 repository = "https://github.com/lights0123/ndless-rs"
 homepage = "https://lights0123.com/ndless-rust/"
 license = "MIT OR Apache-2.0"
-README = "README.md"
+readme = "README.md"
 
 [lib]
 proc-macro = true

@@ -23,8 +23,8 @@ pub fn entry(args: TokenStream, input: TokenStream) -> TokenStream {
 			f.span(),
 			"`#[entry]` function does not meet specifications!",
 		)
-			.to_compile_error()
-			.into();
+		.to_compile_error()
+		.into();
 	}
 
 	if !args.is_empty() {

@@ -2,12 +2,8 @@ pub mod freetype {
 	use ndless::prelude::*;
 	use unicode_segmentation::UnicodeSegmentation;
 
-	use crate::{
-		video::Color,
-		video::Surface,
-		video::SurfaceFlag::SWSurface
-	};
 	use crate::video::Color::{RGB, RGBA};
+	use crate::{video::Color, video::Surface, video::SurfaceFlag::SWSurface};
 
 	#[derive(Debug, PartialEq, Clone)]
 	pub struct Text<'a> {
@@ -87,7 +83,7 @@ pub mod freetype {
 		#[allow(clippy::many_single_char_names)]
 		pub fn render(&mut self) -> &Surface {
 			if self.up_to_date && self.surface.as_ref().is_some() {
-				return self.surface.as_ref().unwrap()
+				return self.surface.as_ref().unwrap();
 			}
 			self.font.set_char_size(self.height * 64, 0, 50, 0).unwrap();
 			let chars = self.text.graphemes(true);
@@ -99,16 +95,22 @@ pub mod freetype {
 			for letter in chars.clone() {
 				self.font.set_transform(&mut self.matrix, &mut pen);
 				self.font
-				    .load_char(
-					    letter.chars().next().unwrap() as usize,
-					    ndless_freetype::face::LoadFlag::RENDER,
-				    )
-				    .unwrap();
+					.load_char(
+						letter.chars().next().unwrap() as usize,
+						ndless_freetype::face::LoadFlag::RENDER,
+					)
+					.unwrap();
 				let glyph = self.font.glyph();
 				let cbox = glyph.get_glyph().unwrap().get_cbox(0);
-				if cbox.xMax / 64 > max_width { max_width = cbox.xMax / 64 }
-				if cbox.yMin / 64 < min_height { min_height = cbox.yMin / 64 }
-				if cbox.yMax / 64 > max_height { max_height = cbox.yMax / 64 }
+				if cbox.xMax / 64 > max_width {
+					max_width = cbox.xMax / 64
+				}
+				if cbox.yMin / 64 < min_height {
+					min_height = cbox.yMin / 64
+				}
+				if cbox.yMax / 64 > max_height {
+					max_height = cbox.yMax / 64
+				}
 				let y = glyph.bitmap_top() as usize;
 				pen.x += glyph.advance().x;
 				pen.y += glyph.advance().y;
@@ -119,21 +121,25 @@ pub mod freetype {
 			let max_height = -min_height + max_height;
 			let reassign = match &self.surface {
 				Some(surface) => {
-					surface.get_width() < max_width as u16 || surface.get_height() < max_height as u16
+					surface.get_width() < max_width as u16
+						|| surface.get_height() < max_height as u16
 				}
-				None => true
+				None => true,
 			};
 			if reassign {
-				self.surface = Some(Surface::new(
-					&[SWSurface],
-					max_width as isize,
-					max_height as isize,
-					32,
-					0xFF00_0000,
-					0x00FF_0000,
-					0x0000_FF00,
-					0x0000_00FF,
-				).unwrap());
+				self.surface = Some(
+					Surface::new(
+						&[SWSurface],
+						max_width as isize,
+						max_height as isize,
+						32,
+						0xFF00_0000,
+						0x00FF_0000,
+						0x0000_FF00,
+						0x0000_00FF,
+					)
+					.unwrap(),
+				);
 			} else {
 				self.surface.as_ref().unwrap().fill(RGBA(0, 0, 0, 0));
 			}
@@ -144,11 +150,11 @@ pub mod freetype {
 			for letter in chars {
 				self.font.set_transform(&mut self.matrix, &mut pen);
 				self.font
-				    .load_char(
-					    letter.chars().next().unwrap() as usize,
-					    ndless_freetype::face::LoadFlag::RENDER,
-				    )
-				    .unwrap();
+					.load_char(
+						letter.chars().next().unwrap() as usize,
+						ndless_freetype::face::LoadFlag::RENDER,
+					)
+					.unwrap();
 				let glyph = self.font.glyph();
 				let bitmap = glyph.bitmap();
 				let x = glyph.bitmap_left() as usize;
@@ -170,12 +176,8 @@ pub mod freetype {
 									h: 1,
 								}),
 								match self.color {
-									RGB(r, g, b) => {
-										RGBA(r, g, b, alpha)
-									},
-									RGBA(r, g, b, _) => {
-										RGBA(r, g, b, alpha)
-									},
+									RGB(r, g, b) => RGBA(r, g, b, alpha),
+									RGBA(r, g, b, _) => RGBA(r, g, b, alpha),
 								},
 							);
 							col += 1;

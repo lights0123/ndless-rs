@@ -57,14 +57,14 @@ fn init_sleep() {
 			let control = 0x900D0008 as *mut u32;
 			let load = 0x900D0000 as *mut u32;
 			let _value = 0x900D0004 as *mut u32;
-			ORIG_CONTROL=read_volatile(control);
-			ORIG_LOAD=read_volatile(load);
+			ORIG_CONTROL = read_volatile(control);
+			ORIG_LOAD = read_volatile(load);
 		} else {
 			let _timer = 0x900D0000 as *mut u32;
 			let control = 0x900D0008 as *mut u32;
 			let divider = 0x900D0004 as *mut u32;
-			ORIG_DIVIDER=read_volatile(divider);
-			ORIG_CONTROL=read_volatile(control);
+			ORIG_DIVIDER = read_volatile(divider);
+			ORIG_CONTROL = read_volatile(control);
 		}
 	}
 }
