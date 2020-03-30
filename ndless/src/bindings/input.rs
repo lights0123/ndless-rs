@@ -1,10 +1,12 @@
-//! # Getting input from hardware
+//! Getting input from th keypad and touchpad
+//!
 //! This contains functionality to get keys pressed, as well as touchpad information.
 
 use crate::alloc::borrow::Borrow;
 use crate::bindings::input::raw_keys::*;
 use crate::prelude::*;
 
+/// Keys available in the Nspire keypad, including the touchpad.
 #[derive(Eq, PartialEq, Debug, Clone, Copy, Hash)]
 #[non_exhaustive]
 pub enum Key {
@@ -422,6 +424,8 @@ pub fn iter_keys() -> impl Iterator<Item = Key> + 'static {
 		.map(|(_, key)| *key)
 }
 
+/// Returns a [`Vec`] of pressed keys.
+///
 /// # Example
 /// ```
 /// use ndless::input::{get_keys, Key};

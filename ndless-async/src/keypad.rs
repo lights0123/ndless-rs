@@ -3,7 +3,7 @@
 //! Listens for button presses and releases.
 
 use alloc::rc::Rc;
-use core::cell::RefCell;
+use core::cell::{RefCell, Ref};
 use core::{
 	mem,
 	pin::Pin,
@@ -37,7 +37,7 @@ struct SharedKeyQueue {
 }
 
 #[derive(Default)]
-pub(crate) struct KeypadListener {
+pub struct KeypadListener {
 	queues: RefCell<Vec<Rc<SharedKeyQueue>>>,
 	keys: RefCell<Vec<Key>>,
 }
@@ -98,7 +98,13 @@ impl KeypadListener {
 			queues.iter_mut().for_each(|queue| queue.waker.wake());
 		}
 	}
-	pub(crate) fn stream(&self) -> KeyStream {
+	/// Each call to
+	/// [`stream`][KeypadListener::stream] returns a unique stream, meaning
+	/// that calling it from different tasks will allow each task to receive
+	/// every event. A buffer of 100 keypress events is allocated. Use
+	/// [`stream_with_buffer`][KeypadListener::stream_with_buffer] if you'd
+	/// like to specify a custom size.
+	pub fn stream(&self) -> KeyStream {
 		let mut queues = self.queues.borrow_mut();
 		let queue = Rc::new(SharedKeyQueue {
 			queue: ArrayQueue::new(100),
@@ -107,10 +113,28 @@ impl KeypadListener {
 		queues.push(queue.clone());
 		KeyStream { queue }
 	}
+	/// This is the same as[`stream`][KeypadListener::stream], except that it
+	/// allows specifying a buffer size other than the default of 100.
+	pub fn stream_with_buffer(&self, size: usize) -> KeyStream {
+		let mut queues = self.queues.borrow_mut();
+		let queue = Rc::new(SharedKeyQueue {
+			queue: ArrayQueue::new(size),
+			waker: AtomicWaker::new(),
+		});
+		queues.push(queue.clone());
+		KeyStream { queue }
+	}
+	/// Returns a [`Ref`] to the keys that are currently pressed.
+	/// **You must [`drop`] this reference either explicitly or by
+	/// ending the current scope before `.await`ing something. The
+	/// program will crash otherwise.
+	pub fn list_keys(&self) -> Ref<Vec<Key>> {
+		self.keys.borrow()
+	}
 }
 
-/// A stream of [`KeyEvent`]s. Use
-/// [`AsyncListeners::keypad`][crate::executor::AsyncListeners::keypad] to get one.
+/// A stream of [`KeyEvent`]s. Use [`KeypadListener::stream`] to get one.
+///
 /// # Example
 /// ```
 /// use ndless_async::StreamExt;

@@ -35,7 +35,7 @@ use futures_util::pin_mut;
 use ndless::hw::idle;
 use ndless::timer::disable_sleep;
 
-use crate::keypad::{KeyStream, KeypadListener};
+use crate::keypad::KeypadListener;
 use crate::timer::TimerListener;
 use crate::yield_now::{Yield, YieldListener};
 
@@ -111,8 +111,8 @@ impl AsyncListeners {
 	/// [`keypad`][AsyncListeners::keypad] returns a unique stream, meaning
 	/// that calling it from different tasks will allow each task to receive
 	/// every event.
-	pub fn keypad(&self) -> KeyStream {
-		self.keypad.stream()
+	pub fn keypad(&self) -> &KeypadListener {
+		&self.keypad
 	}
 	/// Returns a [`TimerListener`] instance, which may be used to schedule
 	/// timers.

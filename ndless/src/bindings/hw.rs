@@ -1,6 +1,7 @@
 //! # Tools to interact with the hardware
 //! This module contains functions to gather information about the calculator.
 
+/// Returned by [`hw_type`]
 #[derive(Eq, PartialEq, Debug, Clone, Copy, Hash)]
 pub enum Type {
 	Nspire,
@@ -49,6 +50,7 @@ pub fn clear_cache() {
 }
 
 pub mod screen {
+	/// Returned by [`lcd_type`]
 	#[derive(Eq, PartialEq, Debug, Clone, Copy, Hash)]
 	pub enum Screen {
 		/// 4bit grayscale. Native on classic calcs.
