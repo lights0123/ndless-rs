@@ -1,7 +1,7 @@
 [package]
 name = "ndless-static-vars"
 description = "Rust library for storing static, program-wide parameters for Ndless"
-version = "2.0.1"
+version = "2.1.0"
 authors = ["lights0123 <developer@lights0123.com>"]
 edition = "2018"
 repository = "https://github.com/lights0123/ndless-rs"

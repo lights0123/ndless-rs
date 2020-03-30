@@ -1,7 +1,7 @@
 [package]
 name = "ndless"
 description = "Rust library for interacting with Ndless for the TI-Nspire"
-version = "0.8.2"
+version = "0.8.3"
 repository = "https://github.com/lights0123/ndless-rs"
 homepage = "https://lights0123.com/ndless-rust/"
 license = "MIT OR Apache-2.0"
@@ -15,4 +15,4 @@ cty = "0.2.0"
 cstr_core = { version = "0.1.2", features = ["alloc"] }
 ndless-sys = "0.2.0"
 ndless-macros = "0.4.0"
-ndless-static-vars = "2.0.1"
+ndless-static-vars = {path="../ndless-static-vars"}

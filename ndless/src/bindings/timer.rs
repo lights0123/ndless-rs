@@ -6,12 +6,7 @@ use core::ptr::{read_volatile, write_volatile};
 
 use crate::bindings::hw::has_colors;
 
-static mut ORIG_DIVIDER: u32 = 0;
-static mut ORIG_CONTROL: u32 = 0;
-static mut ORIG_LOAD: u32 = 0;
-
-static mut TICK_SUM: u32 = 0;
-static mut START_VALUE: u32 = 0;
+use ndless_static_vars::*;
 
 #[doc(hidden)]
 pub fn __init() {
