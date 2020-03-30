@@ -391,6 +391,30 @@ const KEY_MAPPING: &[(ndless_sys::t_key, Key)] = &[
 	(KEY_NSPIRE_eEXP, Key::EExp),
 ];
 
+/// A more efficient way to get keys being pressed than [`get_keys`],
+/// as `iter_keys` does not allocate.
+///
+/// However, it must be used immediately, as each iteration of the
+/// loop checks if the key is being pressed at that time. For example:
+///
+///  ```
+///  use ndless::prelude::*;
+///  use ndless::input::iter_keys;
+///  for key in iter_keys() {
+///      println!("Key {:?} is being pressed.", key);
+///  }
+///  ```
+///
+///  Additionally, it may be used like any other [`Iterator`] in Rust:
+///
+///  ```
+///  // Print all keys except escape
+///  use ndless::prelude::*;
+///  use ndless::input::{iter_keys, Key};
+///  iter_keys()
+///      .filter(|key| key != Key::Esc)
+///      .for_each(|key| println!("Key {:?} is being pressed.", key));
+///  ```
 pub fn iter_keys() -> impl Iterator<Item = Key> + 'static {
 	KEY_MAPPING
 		.iter()
@@ -398,10 +422,19 @@ pub fn iter_keys() -> impl Iterator<Item = Key> + 'static {
 		.map(|(_, key)| *key)
 }
 
+/// # Example
+/// ```
+/// use ndless::input::{get_keys, Key};
+///
+/// let keys = get_keys();
+/// if keys.len() == 0 { /* No keys currently pressed */ }
+/// ```
 pub fn get_keys() -> Vec<Key> {
 	iter_keys().collect()
 }
 
+/// Returns true if the specific key is pressed.
+/// Note that you may pass either an owned [`Key`] or a borrowed [`&Key`][Key].
 pub fn is_key_pressed(key: impl Borrow<Key>) -> bool {
 	KEY_MAPPING
 		.iter()
@@ -412,18 +445,22 @@ pub fn is_key_pressed(key: impl Borrow<Key>) -> bool {
 		)
 }
 
+/// Returns true if any buttons are currently pressed, including pushing the touchpad.
 pub fn any_key_pressed() -> bool {
 	unsafe { ndless_sys::any_key_pressed() > 0 }
 }
 
+/// Returns true if the "On" key is currently pressed.
 pub fn key_on_pressed() -> bool {
 	unsafe { ndless_sys::on_key_pressed() > 0 }
 }
 
+/// Suspends the program until [`any_key_pressed`] returns true.
 pub fn wait_key_pressed() {
 	unsafe { ndless_sys::wait_key_pressed() }
 }
 
+/// Suspends the program until [`any_key_pressed`]  returns false.
 pub fn wait_no_key_pressed() {
 	unsafe { ndless_sys::wait_no_key_pressed() }
 }
