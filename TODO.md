@@ -79,7 +79,7 @@ Available screen types (as of r2004):
 
 - [x] `BOOL any_key_pressed(void)`: non-blocking key press test. Return
     `TRUE` if one or more keys are being pressed.
-- [ ] `BOOL isKeyPressed(key)`: non-blocking key press test. `key` must be
+- [x] `BOOL isKeyPressed(key)`: non-blocking key press test. `key` must be
     one of the `KEY_NSPIRE_*` constants defined in keys.h.
 - [x] `BOOL on_key_pressed(void)`: since v3.1. Non-blocking ON key press
     test. Caution, key scanning is time consuming and may hurt the
@@ -148,7 +148,7 @@ function. Returns -1 on error, 0 if success.
 
 ## Time
 
-- [ ] `void idle(void)`: switch to low-power state until the next
+- [x] `void idle(void)`: switch to low-power state until the next
     interrupt occurs. The use of this function is encouraged when
     waiting in loops for an event to save the batteries. Changing the
     timer frequency have effects on the latency of this function.
@@ -184,14 +184,14 @@ functions.
     to CAS CX 3.1, values\[4\] to CM-C 3.1, values\[5\] to CAS CM-C 3.1,
     values\[6\] to non-CAS 3.6, values\[7\] to CAS 3.6, values\[8\] to
     non-CAS CX 3.6, values\[9\] to CAS CX 3.6.
-- [x] `void nl_set_resident(void)`: (since v3.1 r553) see [Resident
-    programs]
+- [x] `void nl_set_resident(void)`: (since v3.1 r553) see
+      [Resident programs]
 - [ ] `void nl_no_scr_redraw(void)`: (since v3.1 r756) don't restore the
     screen on program exit
 - [x] `BOOL nl_loaded_by_3rd_party_loader(void)`: (since v3.1 r791) return
     TRUE if a third-party Launcher was used to boot the OS, such as
     nLaunch/nLaunchy
-- [ ] `int nl_exec(const char *prgm_path, int argsn, char *args[])`:
+- [x] `int nl_exec(const char *prgm_path, int argsn, char *args[])`:
     (since v3.1 r877) run a program. `prgm_path` is its full path with
     .tns extension, `argsn` is `args[]` size, `args[]` sets the program
     additional arguments, passed through the main function's `argv[]`

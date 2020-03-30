@@ -1,0 +1,18 @@
+[package]
+name = "ndless"
+description = "Rust library for interacting with Ndless for the TI-Nspire"
+version = "0.8.2"
+repository = "https://github.com/lights0123/ndless-rs"
+homepage = "https://lights0123.com/ndless-rust/"
+license = "MIT OR Apache-2.0"
+authors = ["lights0123 <developer@lights0123.com>"]
+edition = "2018"
+readme = "../README.md"
+
+[dependencies]
+embedded-ffi = { version = "0.1.2", features = ["alloc"] }
+cty = "0.2.0"
+cstr_core = { version = "0.1.2", features = ["alloc"] }
+ndless-sys = "0.2.0"
+ndless-macros = {path="../ndless-macros"}
+ndless-static-vars = "2.0.1"

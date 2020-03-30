@@ -1,0 +1,21 @@
+[package]
+
+name = "ndless-freetype"
+version = "0.1.3"
+authors = ["Coeuvre <coeuvre@gmail.com>", "lights0123 <developer@lights0123.com>"]
+keywords = ["freetype", "font", "glyph"]
+description = "Bindings for FreeType font library for Ndless"
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/lights0123/ndless-rs"
+homepage = "https://lights0123.com/ndless-rust/"
+edition = "2018"
+
+[dependencies]
+
+bitflags = "1.0.4"
+cty = "0.2.0"
+embedded-freetype-sys = "0.2.0"
+ndless-sys = "0.2.0"
+cstr_core = { version = "0.1.2", features = ["alloc"] }
+failure = { version = "0.1.5", default-features = false }

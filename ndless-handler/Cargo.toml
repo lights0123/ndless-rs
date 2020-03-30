@@ -1,0 +1,22 @@
+[package]
+name = "ndless-handler"
+description = "Rust handlers for Ndless for TI Nspire"
+repository = "https://github.com/lights0123/ndless-rs"
+homepage = "https://lights0123.com/ndless-rust/"
+license = "MIT OR Apache-2.0"
+version = "0.2.1"
+authors = ["lights0123 <developer@lights0123.com>"]
+edition = "2018"
+
+[dependencies]
+ndless = "0.8.0"
+ndless-sys = "0.2.0"
+cty = "0.2.0"
+
+[features]
+default = ["allocator", "oom-handler", "panic-handler", "eh-personality"]
+allocator = []
+oom-handler = []
+panic-handler = []
+eh-personality = []
+ctype-ptr = []

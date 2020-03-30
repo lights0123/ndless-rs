@@ -1,0 +1,19 @@
+[package]
+name = "ndless-macros"
+description = "Macros for Ndless for the TI-Nspire"
+version = "0.4.0"
+authors = ["lights0123 <developer@lights0123.com>"]
+edition = "2018"
+repository = "https://github.com/lights0123/ndless-rs"
+homepage = "https://lights0123.com/ndless-rust/"
+license = "MIT OR Apache-2.0"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+quote = "0.6.12"
+proc-macro2 = "0.4.27"
+syn = { version = "0.15.26", features = ["extra-traits", "full"] }
+ndless-static-vars = "2.0.0"
+cty = "0.1.5"
