@@ -39,7 +39,11 @@ macro_rules! print {
 
 #[macro_export]
 macro_rules! println {
-    () => ($crate::out::print("\n"));
+    () => (
+        match $crate::out::print_fmt(format_args!("\n")) {
+            _ => {}
+        }
+    );
 	($($arg:tt)*) => (
 		match $crate::out::print_fmt(format_args!("{}\n", format_args!($($arg)*))) {
 			_ => {}
