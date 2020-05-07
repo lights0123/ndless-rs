@@ -1,5 +1,6 @@
 [workspace]
 members = [
+  "cargo-ndless",
   "ndless",
   "ndless-async",
   "ndless-handler",
