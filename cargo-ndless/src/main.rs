@@ -17,6 +17,7 @@ use crate::firebird::send_file;
 mod cli;
 mod files;
 mod firebird;
+mod install;
 
 #[derive(Clone, Debug, Default, Deserialize)]
 struct ZehnOptions {
@@ -81,6 +82,8 @@ fn build_cmd<S: AsRef<OsStr>>(
 }
 
 fn build(build_settings: cli::Build) -> Result<(bool, Vec<PathBuf>)> {
+	install::rustup_component("rust-src")?;
+	install::cargo_plugin("xbuild")?;
 	let mut some_failure = false;
 	let target = files::get_target(build_settings.target.clone().map(PathBuf::from))?;
 	if target.0 {
