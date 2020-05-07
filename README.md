@@ -11,6 +11,13 @@ interesting crate here is [ndless](ndless).
 		<th>Docs</th>
 	</tr>
 	<tr>
+		<td><a href="ndless">cargo-ndless</a></td>
+		<td><a href="https://crates.io/crates/cargo-ndless">
+			<img alt="Crates.io" src="https://img.shields.io/crates/v/cargo-ndless.svg">
+		</a></td>
+		<td>(Binary crate)</td>
+	</tr>
+	<tr>
 		<td><a href="ndless">ndless</a></td>
 		<td><a href="https://crates.io/crates/ndless">
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless.svg">
