@@ -1,9 +1,8 @@
 use clap::arg_enum;
 use std::ffi::{OsStr, OsString};
-use std::iter;
+
 use std::path::PathBuf;
-use std::slice;
-use structopt::clap::AppSettings;
+
 use structopt::StructOpt;
 
 arg_enum! {
@@ -16,9 +15,9 @@ arg_enum! {
 }
 impl Color {
 	pub fn iter(&self) -> impl Iterator<Item = &OsStr> {
-		const AUTO: &'static [&'static str] = &["--color", "auto"];
-		const ALWAYS: &'static [&'static str] = &["--color", "always"];
-		const NEVER: &'static [&'static str] = &["--color", "never"];
+		const AUTO: &[&str] = &["--color", "auto"];
+		const ALWAYS: &[&str] = &["--color", "always"];
+		const NEVER: &[&str] = &["--color", "never"];
 		match self {
 			Color::Auto => AUTO,
 			Color::Always => ALWAYS,

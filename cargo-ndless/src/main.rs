@@ -1,16 +1,14 @@
 use std::ffi::{OsStr, OsString};
-use std::fs::{canonicalize, remove_file};
+use std::fs::remove_file;
 use std::io;
-use std::io::{Error, Read, Write};
 use std::path::{Path, PathBuf};
-use std::process::{Child, Command, ExitStatus, Output, Stdio};
-use std::time::Duration;
+use std::process::{Child, Command, ExitStatus, Stdio};
+
 use std::{env, process};
 
 use anyhow::{ensure, Result};
 use cargo_metadata::Message;
-use console::Term;
-use indicatif::ProgressBar;
+
 use serde::Deserialize;
 use structopt::StructOpt;
 
@@ -30,7 +28,7 @@ struct ZehnOptions {
 }
 
 fn cargo_cmd() -> Command {
-	let cmd = env::var_os("CARGO").map_or_else(|| PathBuf::from("cargo"), |s| PathBuf::from(s));
+	let cmd = env::var_os("CARGO").map_or_else(|| PathBuf::from("cargo"), PathBuf::from);
 	Command::new(cmd)
 }
 
@@ -77,11 +75,10 @@ fn inner_main() -> Result<bool> {
 	if let Some(true) = args.get(1).map(|arg| arg == "ndless") {
 		args.remove(1);
 	}
-	let opt: Opt = dbg!(Opt::from_iter(args.iter()));
+	let opt: Opt = Opt::from_iter(args.iter());
 	match opt.cmd {
 		cli::Command::Build(build_settings) => {
-			let target =
-				files::get_target(build_settings.target.clone().map(|t| PathBuf::from(t)))?;
+			let target = files::get_target(build_settings.target.clone().map(PathBuf::from))?;
 			if target.0 {
 				ensure!(
 					clean(build_settings.manifest_path.as_ref().map(AsRef::as_ref))?.success(),
@@ -113,7 +110,6 @@ fn inner_main() -> Result<bool> {
 							.get("zehn")
 							.and_then(|m| serde_json::from_value(m.clone()).ok())
 							.unwrap_or_default();
-						dbg!(&config);
 						let mut genzehn = Command::new("genzehn");
 						let target_folder = binary.parent().unwrap();
 						let zehn_file = target_folder.join(format!("{}.zehn", &package.name));

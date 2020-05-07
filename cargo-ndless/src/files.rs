@@ -4,7 +4,7 @@ use std::io::{Read, Write};
 use std::ops::Deref;
 use std::path::{Path, PathBuf};
 
-use anyhow::{bail, Context, Result};
+use anyhow::{bail, Result};
 use log::debug;
 
 type GenericPath = Box<dyn Deref<Target = Path>>;
