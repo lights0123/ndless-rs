@@ -14,7 +14,7 @@ pub fn is_startup() -> bool {
 /// this in when compiling for an actual calculator.
 pub fn bkpt() {
 	if cfg!(debug_assertions) {
-		unsafe { asm!(".long 0xE1212374") }
+		unsafe { llvm_asm!(".long 0xE1212374") }
 	}
 }
 

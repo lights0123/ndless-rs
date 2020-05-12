@@ -8,7 +8,7 @@
 #![allow(clippy::tabs_in_doc_comments, clippy::needless_doctest_main)]
 #![feature(alloc_prelude, allocator_api)]
 #![feature(core_intrinsics)]
-#![feature(asm)]
+#![feature(llvm_asm)]
 #![feature(never_type)]
 #![feature(maybe_uninit_ref)]
 pub extern crate alloc;

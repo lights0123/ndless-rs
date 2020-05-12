@@ -2,11 +2,17 @@
 //!
 //! Tools for interacting with low-level timers of the nspire.
 #![allow(clippy::unreadable_literal)]
+
 use core::ptr::{read_volatile, write_volatile};
 
-use crate::bindings::hw::has_colors;
-
 use ndless_static_vars::*;
+
+use crate::hw::has_colors;
+use crate::time::Duration;
+
+pub const TICKS_PER_SECOND: u32 = 32768;
+pub const TICKS_PER_MILLISECOND: u32 = 33;
+pub const MICROSECONDS_PER_TICK: u32 = 1000 / TICKS_PER_MILLISECOND;
 
 #[doc(hidden)]
 pub fn __init() {
@@ -107,5 +113,37 @@ pub fn disable_sleep() {
 			write_volatile(divider, ORIG_DIVIDER);
 			write_volatile(timer, 32);
 		}
+	}
+}
+
+/// Detects if the number of ticks has passed yet
+pub fn has_time_passed(at_tick: u32) -> bool {
+	// https://arduino.stackexchange.com/a/12588/3134
+	let half_max = 2u32.pow(31);
+	get_ticks().wrapping_sub(at_tick).wrapping_add(half_max) >= half_max
+}
+
+/// Utilities to convert standard Rust [`Duration`]s into Nspire ticks
+pub trait Ticks {
+	fn from_ticks(ticks: u32) -> Self;
+	fn as_ticks(&self) -> u32;
+}
+
+impl Ticks for Duration {
+	fn from_ticks(ticks: u32) -> Self {
+		let millis_part = ticks % TICKS_PER_SECOND;
+		let micros_part = millis_part % TICKS_PER_MILLISECOND;
+		let millis = millis_part / TICKS_PER_MILLISECOND;
+		let micros = micros_part * MICROSECONDS_PER_TICK;
+		Duration::new(
+			(ticks / TICKS_PER_SECOND) as u64,
+			millis * 1_000_000 + micros * 1000,
+		)
+	}
+
+	fn as_ticks(&self) -> u32 {
+		self.as_secs() as u32 * TICKS_PER_SECOND
+			+ self.subsec_millis() as u32 * TICKS_PER_MILLISECOND
+			+ self.subsec_micros() % 1000 / MICROSECONDS_PER_TICK
 	}
 }
