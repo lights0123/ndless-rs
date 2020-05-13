@@ -42,23 +42,37 @@ need to depend on it directly.
 # Example
 
 ```rust
+use futures_util::future;
 use ndless_async::task::{block_on, AsyncListeners};
 use ndless_async::{first, StreamExt};
 use ndless_async::keypad::KeypadListener;
 use ndless::input::Key;
-let listeners = AsyncListeners::new();
-let keypad = KeypadListener::new(&listeners.timer());
-block_on(&listeners, async {
-    let _ = listeners.timer().timeout_ms(5000, do_stuff(&keypad)).await;
-    listeners.timer().sleep_ms(2000).await;
-    first!(do_other_stuff(&listeners), do_other_stuff(&listeners));
-});
+
+fn main() {
+    let listeners = AsyncListeners::new();
+    let keypad = KeypadListener::new(&listeners.timer());
+    block_on(&listeners, async {
+        let _ = listeners.timer().timeout_ms(5000, do_stuff(&keypad)).await;
+        listeners.timer().sleep_ms(2000).await;
+        first!(do_other_stuff(&listeners), wait_for_esc(&keypad));
+    });
+}
+
+async fn wait_for_esc(keypad: &KeypadListener<'_>) {
+    keypad
+        .stream()
+        .filter(|key| future::ready(key.key == Key::Esc))
+        .next()
+        .await;
+}
+
 async fn do_other_stuff(listeners: &AsyncListeners) {
     loop {
         listeners.timer().sleep_ms(1000).await;
         println!("1s!");
     }
 }
+
 async fn do_stuff(listeners: &KeypadListener<'_>) {
     use ndless_async::keypad::KeyState::*;
     let mut keypad = listeners.stream();
