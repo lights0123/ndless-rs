@@ -1,4 +1,5 @@
-//! A multi-producer, single-consumer queue for sending values across asynchronous tasks.
+//! A multi-producer, single-consumer queue for sending values across
+//! asynchronous tasks.
 //!
 //! Similarly to the `std`, channel creation provides [`Receiver`] and
 //! [`Sender`] handles. [`Receiver`] implements [`Stream`] and allows a task to

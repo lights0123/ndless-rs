@@ -1,21 +1,15 @@
 [package]
 name = "ndless-async"
+description = "Ndless-specific integration with async/await for the TI-Nspire"
 version = "0.1.0"
 authors = ["lights0123 <developer@lights0123.com>"]
 repository = "https://github.com/lights0123/ndless-rs"
 license = "MIT OR Apache-2.0"
 edition = "2018"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+readme = "README.md"
 
 [dependencies]
-ndless = "0.8.5"
+ndless = "0.8.6"
 ignore-result = "0.2.0"
-[dependencies.futures-util]
-version = "0.3.4"
-default-features = false
-features = ["alloc", "async-await-macro"]
-[dependencies.crossbeam-queue]
-version = "0.2.1"
-default-features = false
-features = ["alloc"]
+futures-util = { version = "0.3.5", default-features = false, features = ["alloc", "async-await-macro"] }
+crossbeam-queue = { version = "0.2.1", default-features = false, features = ["alloc"] }

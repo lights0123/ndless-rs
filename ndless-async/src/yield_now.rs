@@ -38,7 +38,7 @@ impl YieldListener {
 }
 
 /// Allows other tasks to run. See
-/// [`AsyncListeners::yield_now`][crate::executor::AsyncListeners::yield_now]
+/// [`AsyncListeners::yield_now`][crate::task::AsyncListeners::yield_now]
 /// for more details.
 pub struct Yield {
 	waker: Rc<WakerData>,

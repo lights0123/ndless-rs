@@ -1,12 +1,12 @@
-//! Executor
+//! Main task executing functionality
 //!
 //! The main ndless executor and reactor. Calling [`block_on`] will wait for the
-//! future to complete, then return its result. You'll often want to combine this
-//! with [`join`] or [`first`] to run multiple things at once.
+//! future to complete, then return its result. You'll often want to combine
+//! this with [`join`] or [`first`] to run multiple things at once.
 //!
 //! # Example
 //! ```
-//! use ndless_async::executor::{AsyncListeners, block_on};
+//! use ndless_async::task::{AsyncListeners, block_on};
 //! use ndless_async::StreamExt;
 //! use ndless::input::Key;
 //! use ndless::prelude::*;
@@ -31,11 +31,9 @@ use core::sync::atomic::{AtomicBool, Ordering};
 use core::task::{Context, Poll, Waker};
 
 use futures_util::pin_mut;
-
 use ndless::hw::idle;
 use ndless::timer::disable_sleep;
 
-use crate::keypad::KeypadListener;
 use crate::timer::TimerListener;
 use crate::yield_now::{Yield, YieldListener};
 
@@ -49,7 +47,6 @@ pub fn block_on<T>(listeners: &AsyncListeners, task: impl Future<Output = T>) ->
 	pin_mut!(task);
 	let mut task = task;
 	loop {
-		listeners.keypad.poll();
 		listeners.timer.poll();
 		listeners.yielder.poll();
 		while wake_marker.load(Ordering::Relaxed) {
@@ -62,16 +59,12 @@ pub fn block_on<T>(listeners: &AsyncListeners, task: impl Future<Output = T>) ->
 					wake_marker.store(false, Ordering::Relaxed);
 				}
 			}
-			listeners.keypad.poll();
 			listeners.timer.poll();
 			listeners.yielder.poll();
 		}
-		if listeners.keypad.is_empty() {
-			listeners.timer.config_sleep();
-		} else {
-			disable_sleep();
-		}
+		listeners.timer.config_sleep();
 		idle();
+		disable_sleep();
 	}
 }
 
@@ -101,18 +94,13 @@ impl Wake for TaskWaker {
 /// well as your future. See the [module-level documentation][self] for more.
 #[derive(Default)]
 pub struct AsyncListeners {
-	keypad: KeypadListener,
 	timer: TimerListener,
 	yielder: YieldListener,
 }
 
 impl AsyncListeners {
-	/// Returns a stream of keypad events. Each call to
-	/// [`keypad`][AsyncListeners::keypad] returns a unique stream, meaning
-	/// that calling it from different tasks will allow each task to receive
-	/// every event.
-	pub fn keypad(&self) -> &KeypadListener {
-		&self.keypad
+	pub fn new() -> Self {
+		Default::default()
 	}
 	/// Returns a [`TimerListener`] instance, which may be used to schedule
 	/// timers.
