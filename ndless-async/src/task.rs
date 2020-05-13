@@ -39,24 +39,24 @@ use crate::yield_now::{Yield, YieldListener};
 
 /// Spawns a task and blocks until the future resolves, returning its result.
 pub fn block_on<T>(listeners: &AsyncListeners, task: impl Future<Output = T>) -> T {
-	let wake_marker = Arc::new(AtomicBool::new(true));
-	let waker = Waker::from(Arc::new(TaskWaker {
-		wake_marker: wake_marker.clone(),
-	}));
+	let wake_marker = Arc::new(TaskWaker {
+		wake_marker: AtomicBool::new(true),
+	});
+	let waker = Waker::from(wake_marker.clone());
 	let mut context = Context::from_waker(&waker);
 	pin_mut!(task);
 	let mut task = task;
 	loop {
 		listeners.timer.poll();
 		listeners.yielder.poll();
-		while wake_marker.load(Ordering::Relaxed) {
+		while wake_marker.wake_marker.load(Ordering::Relaxed) {
 			match task.as_mut().poll(&mut context) {
 				Poll::Ready(val) => {
 					disable_sleep();
 					return val;
 				}
 				Poll::Pending => {
-					wake_marker.store(false, Ordering::Relaxed);
+					wake_marker.wake_marker.store(false, Ordering::Relaxed);
 				}
 			}
 			listeners.timer.poll();
@@ -69,7 +69,7 @@ pub fn block_on<T>(listeners: &AsyncListeners, task: impl Future<Output = T>) ->
 }
 
 struct TaskWaker {
-	wake_marker: Arc<AtomicBool>,
+	wake_marker: AtomicBool,
 }
 
 impl TaskWaker {

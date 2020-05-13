@@ -37,6 +37,7 @@
 //!
 //! # Example
 //! ```rust
+//! use futures_util::future;
 //! use ndless_async::task::{block_on, AsyncListeners};
 //! use ndless_async::{first, StreamExt};
 //! use ndless_async::keypad::KeypadListener;
@@ -47,8 +48,16 @@
 //! block_on(&listeners, async {
 //!     let _ = listeners.timer().timeout_ms(5000, do_stuff(&keypad)).await;
 //!     listeners.timer().sleep_ms(2000).await;
-//!     first!(do_other_stuff(&listeners), do_other_stuff(&listeners));
+//!     first!(do_other_stuff(&listeners), wait_for_esc(&keypad));
 //! });
+//!
+//! async fn wait_for_esc(keypad: &KeypadListener<'_>) {
+//!     keypad
+//!         .stream()
+//!         .filter(|key| future::ready(key.key == Key::Esc))
+//!         .next()
+//!         .await;
+//! }
 //!
 //! async fn do_other_stuff(listeners: &AsyncListeners) {
 //!     loop {
@@ -57,9 +66,9 @@
 //!     }
 //! }
 //!
-//! async fn do_stuff(listeners: &KeypadListener<'_>) {
+//! async fn do_stuff(keypad: &KeypadListener<'_>) {
 //!     use ndless_async::keypad::KeyState::*;
-//!     let mut keypad = listeners.stream();
+//!     let mut keypad = keypad.stream();
 //!     while let Some(event) = keypad.next().await {
 //!         println!(
 //!             "Key {:?} was {}",
@@ -71,7 +80,7 @@
 //!             }
 //!         );
 //!         print!("Keys currently pressed: ");
-//!         listeners
+//!         keypad
 //!             .list_keys()
 //!             .iter()
 //!             .for_each(|key| print!("{:?} ", key));

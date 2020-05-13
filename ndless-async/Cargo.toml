@@ -1,7 +1,7 @@
 [package]
 name = "ndless-async"
 description = "Ndless-specific integration with async/await for the TI-Nspire"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["lights0123 <developer@lights0123.com>"]
 repository = "https://github.com/lights0123/ndless-rs"
 license = "MIT OR Apache-2.0"
