@@ -26,7 +26,7 @@ interesting crate here is [ndless](ndless).
 			<img alt="Docs.rs" src="https://docs.rs/ndless/badge.svg">
 		</a></td>
 	</tr>
-	<!--<tr>
+	<tr>
 		<td><a href="ndless-async">ndless-async</a></td>
 		<td><a href="https://crates.io/crates/ndless-async">
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-async.svg">
@@ -34,7 +34,7 @@ interesting crate here is [ndless](ndless).
 		<td><a href="https://docs.rs/ndless-async">
 			<img alt="Docs.rs" src="https://docs.rs/ndless-async/badge.svg">
 		</a></td>
-	</tr>-->
+	</tr>
 	<tr>
 		<td><a href="ndless-freetype">ndless-freetype</a></td>
 		<td><a href="https://crates.io/crates/ndless-freetype">
