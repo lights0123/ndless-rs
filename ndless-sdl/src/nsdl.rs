@@ -4,7 +4,6 @@
 //! let font = Font::new(FontOptions::Thin, 255, 255, 255);
 //! screen.draw_str(&font, "message", 0, 0);
 //! ```
-use ndless::prelude::*;
 
 use crate::video::ll::SDL_Surface;
 
@@ -38,6 +37,7 @@ pub mod ll {
 }
 
 #[repr(i32)]
+#[derive(Copy, Clone, Eq, PartialEq, Debug, Hash)]
 pub enum FontOptions {
 	Thin = 0,
 	Space,
@@ -46,6 +46,7 @@ pub enum FontOptions {
 	ThinType,
 }
 
+#[derive(Clone, Debug)]
 pub struct Font {
 	pub font: *mut ll::nSDL_Font,
 }
@@ -59,18 +60,18 @@ impl Font {
 		Self { font }
 	}
 
-	pub fn draw(&self, surface: *mut SDL_Surface, msg: impl Into<String>, x: i32, y: i32) {
-		let msg = ndless::cstr!(msg.into());
+	pub fn draw(&self, surface: *mut SDL_Surface, msg: &str, x: i32, y: i32) {
+		let msg = ndless::cstr!(msg);
 		unsafe { ll::nSDL_DrawString(surface, self.font, x, y, msg.as_ptr()) }
 	}
 
-	pub fn get_width(&self, msg: impl Into<String>) -> i32 {
-		let msg = ndless::cstr!(msg.into());
+	pub fn get_width(&self, msg: &str) -> i32 {
+		let msg = ndless::cstr!(msg);
 		unsafe { ll::nSDL_GetStringWidth(self.font, msg.as_ptr()) }
 	}
 
-	pub fn get_height(&self, msg: impl Into<String>) -> i32 {
-		let msg = ndless::cstr!(msg.into());
+	pub fn get_height(&self, msg: &str) -> i32 {
+		let msg = ndless::cstr!(msg);
 		unsafe { ll::nSDL_GetStringHeight(self.font, msg.as_ptr()) }
 	}
 

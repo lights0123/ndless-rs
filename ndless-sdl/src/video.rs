@@ -250,7 +250,7 @@ impl Drop for Surface {
 	}
 }
 
-#[derive(PartialEq, Copy, Clone)]
+#[derive(PartialEq, Copy, Clone, Debug)]
 pub struct Palette {
 	pub raw: *mut ll::SDL_Palette,
 }
@@ -278,7 +278,7 @@ impl Palette {
 	}
 }
 
-#[derive(PartialEq, Copy, Clone)]
+#[derive(PartialEq, Debug)]
 pub struct PixelFormat {
 	pub palette: Option<Palette>,
 	pub bpp: u8,
@@ -455,7 +455,7 @@ pub fn is_video_mode_ok(
 	}
 }
 
-#[derive(PartialEq, Eq, Copy, Clone)]
+#[derive(PartialEq, Eq, Copy, Clone, Debug, Hash)]
 pub enum VideoInfoFlag {
 	HWAvailable = 0x0000_0001,
 	WMAvailable = 0x0000_0002,
@@ -468,6 +468,7 @@ pub enum VideoInfoFlag {
 	BlitFill = 0x0000_8000,
 }
 
+#[derive(Debug, PartialEq)]
 pub struct VideoInfo {
 	pub flags: Vec<VideoInfoFlag>,
 	pub width: isize,
@@ -817,7 +818,7 @@ impl Surface {
 		self.fill(RGB(0, 0, 0))
 	}
 
-	pub fn draw_str(&self, font: &crate::nsdl::Font, msg: impl Into<String>, x: i32, y: i32) {
+	pub fn draw_str(&self, font: &crate::nsdl::Font, msg: &str, x: i32, y: i32) {
 		font.draw(self.raw, msg, x, y)
 	}
 }

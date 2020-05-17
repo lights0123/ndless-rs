@@ -22,8 +22,8 @@
 //! ndless_sdl::quit();
 //! ```
 //!
-//! It is not recommended to use the input methods from this crate. Rather, use the ones built
-//! into the ndless crate.
+//! It is not recommended to use the input methods from this crate. Rather, use
+//! the ones built into the ndless crate.
 extern crate num;
 
 pub use sdl::*;

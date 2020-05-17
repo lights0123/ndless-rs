@@ -1,5 +1,6 @@
 use core::str;
 use cstr_core::{CStr, CString};
+use ndless::hw::has_colors;
 use ndless::prelude::*;
 
 // Setup linking for all targets.
@@ -59,7 +60,7 @@ pub mod ll {
 }
 
 #[repr(C)]
-#[derive(PartialEq, Copy, Clone)]
+#[derive(PartialEq, Copy, Clone, Debug, Eq, Hash)]
 pub struct Rect {
 	pub x: i16,
 	pub y: i16,
@@ -78,7 +79,7 @@ impl Rect {
 	}
 }
 
-#[derive(PartialEq, Eq, Copy, Clone)]
+#[derive(PartialEq, Eq, Copy, Clone, Debug, Hash)]
 pub enum InitFlag {
 	Timer = ll::SDL_INIT_TIMER as isize,
 	Audio = ll::SDL_INIT_AUDIO as isize,
@@ -90,7 +91,7 @@ pub enum InitFlag {
 	Everything = ll::SDL_INIT_EVERYTHING as isize,
 }
 
-#[derive(PartialEq, Eq, Copy, Clone)]
+#[derive(PartialEq, Eq, Copy, Clone, Debug, Hash)]
 pub enum Error {
 	NoMem = ll::SDL_ENOMEM as isize,
 	Read = ll::SDL_EFREAD as isize,
@@ -107,6 +108,19 @@ pub fn init(flags: &[InitFlag]) -> bool {
 				.fold(0u32, |flags, &flag| flags | flag as ll::SDL_InitFlag),
 		) == 0
 	}
+}
+
+pub fn init_default() -> Result<crate::video::Surface, String> {
+	if !init(&[crate::InitFlag::Video]) {
+		return Err("Failed to initialize video".to_string());
+	}
+	crate::video::set_video_mode(
+		320,
+		240,
+		if has_colors() { 16 } else { 8 },
+		&[crate::video::SurfaceFlag::SWSurface],
+		&[],
+	)
 }
 
 pub fn init_subsystem(flags: &[InitFlag]) -> bool {

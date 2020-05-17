@@ -1,5 +1,6 @@
 pub mod ll {
-	/// Structure holding the state and timing information of the framerate controller.
+	/// Structure holding the state and timing information of the framerate
+	/// controller.
 	#[repr(C)]
 	#[derive(Debug, Copy, Clone, Default)]
 	pub struct FPSmanager {

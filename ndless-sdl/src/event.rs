@@ -1123,4 +1123,5 @@ pub fn enable_key_repeat(delay: RepeatDelay, interval: RepeatInterval) -> bool {
 	unsafe { ll::SDL_EnableKeyRepeat(delay as c_int, interval as c_int) == 0 as c_int }
 }
 
-// get_mouse_state, get_relative_mouse_state, start_text_input, stop_text_input, set_text_input_rect
+// get_mouse_state, get_relative_mouse_state, start_text_input, stop_text_input,
+// set_text_input_rect
