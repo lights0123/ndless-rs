@@ -16,7 +16,7 @@ use futures_util::{stream::Stream, task::AtomicWaker, StreamExt};
 use ignore_result::Ignore;
 use ndless::input::{iter_keys, Key};
 use ndless::prelude::*;
-use ndless::timer::{Ticks, TICKS_PER_SECOND};
+use ndless::timer::{get_ticks, Ticks, TICKS_PER_SECOND};
 
 use crate::timer::TimerListener;
 
@@ -32,6 +32,8 @@ pub enum KeyState {
 pub struct KeyEvent {
 	pub key: Key,
 	pub state: KeyState,
+	/// Tick that this event occurred
+	pub tick_at: u32,
 }
 
 struct SharedKeyQueue {
@@ -65,12 +67,14 @@ impl KeypadListenerInner {
 			} else {
 				change = true;
 				keys.push(key);
+				let tick_at = get_ticks();
 				queues.iter_mut().for_each(|queue| {
 					queue
 						.queue
 						.push(KeyEvent {
 							key,
 							state: KeyState::Pressed,
+							tick_at,
 						})
 						.ignore()
 				});
@@ -81,6 +85,7 @@ impl KeypadListenerInner {
 				retain_i += 1;
 			}
 		});
+		let tick_at = get_ticks();
 		for _ in retain_i..keys.len() {
 			change = true;
 			let key = keys.pop().unwrap();
@@ -90,6 +95,7 @@ impl KeypadListenerInner {
 					.push(KeyEvent {
 						key,
 						state: KeyState::Released,
+						tick_at,
 					})
 					.ignore()
 			});
