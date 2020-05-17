@@ -178,7 +178,7 @@ impl<'a> KeypadListener<'a> {
 			timer_listener: None,
 			rate: 0,
 			interval: RefCell::new(Weak::<RefCell<futures_util::future::Ready<()>>>::new()),
-			inner: Rc::new(Default::default()),
+			inner: Default::default(),
 		}
 	}
 	fn interval(&self) -> Rc<RefCell<dyn Future<Output = ()> + Unpin>> {
