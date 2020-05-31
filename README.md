@@ -45,7 +45,7 @@ interesting crate here is [ndless](ndless).
 		</a></td>
 	</tr>
 	<tr>
-		<td><a href="ndless-handler">ndless-handler</a></td>
+		<td><a href="ndless-handler">ndless-handler</a> (deprecated)</td>
 		<td><a href="https://crates.io/crates/ndless-handler">
 			<img alt="Crates.io" src="https://img.shields.io/crates/v/ndless-handler.svg">
 		</a></td>

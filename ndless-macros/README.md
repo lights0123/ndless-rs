@@ -2,6 +2,8 @@
 [![Crates.io](https://img.shields.io/crates/v/ndless-macros.svg)](https://crates.io/crates/ndless-macros)
 [![Docs.rs](https://docs.rs/ndless-macros/badge.svg)](https://docs.rs/ndless-macros)
 
+**This crate is now deprecated. You no longer need this—just declare a `fn main()` as normal.**
+
 Ndless procedural macros for common tasks, such as marking the main
 function of the program. It will automatically store the command-line
 arguments, and mark the function as the entrance to the program. You

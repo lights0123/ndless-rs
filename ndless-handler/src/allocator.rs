@@ -6,7 +6,8 @@ use core::ptr;
 
 use cty::c_void;
 
-/// This allows for dynamic allocation, which calls the C functions `calloc` and `free`.
+/// This allows for dynamic allocation, which calls the C functions `calloc` and
+/// `free`.
 pub struct CAllocator;
 
 const MIN_ALIGN: usize = size_of::<usize>();

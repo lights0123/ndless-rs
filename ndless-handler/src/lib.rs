@@ -8,12 +8,26 @@ use alloc::format;
 use alloc::string::ToString;
 
 use crate::allocator::CAllocator;
+use core::slice;
 
 mod allocator;
 
 #[cfg(feature = "eh-personality")]
 #[lang = "eh_personality"]
 extern "C" fn eh_personality() {}
+
+#[cfg(feature = "lang-start")]
+#[lang = "start"]
+fn lang_start<T: ndless::process::Termination + 'static>(
+	main: fn() -> T,
+	argc: isize,
+	argv: *const *const u8,
+) -> isize {
+	unsafe {
+		ndless::__init(slice::from_raw_parts(argv as *const _, argc as usize));
+	}
+	main().report() as isize
+}
 
 #[cfg(feature = "oom-handler")]
 #[alloc_error_handler]
