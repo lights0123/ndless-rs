@@ -67,12 +67,14 @@ fn build_cmd<S: AsRef<OsStr>>(
 	additional_args: impl IntoIterator<Item = S>,
 ) -> io::Result<Child> {
 	let mut cmd = cargo_cmd();
-	cmd.arg("xbuild");
+	cmd.arg("build");
 	if let Some(manifest) = manifest {
 		cmd.arg("--manifest-path");
 		cmd.arg(manifest);
 	}
 	cmd.arg("--message-format=json-render-diagnostics")
+		.arg("-Z")
+		.arg("build-std=core,alloc")
 		.arg("--target")
 		.arg(target)
 		.args(additional_args)
@@ -83,7 +85,6 @@ fn build_cmd<S: AsRef<OsStr>>(
 
 fn build(build_settings: cli::Build) -> Result<(bool, Vec<PathBuf>)> {
 	install::rustup_component("rust-src")?;
-	install::cargo_plugin("xbuild")?;
 	let mut some_failure = false;
 	let target = files::get_target(build_settings.target.clone().map(PathBuf::from))?;
 	if target.0 {

@@ -1,7 +1,7 @@
 [package]
 name = "cargo-ndless"
 description = "Cargo subcommand for building ndless binaries"
-version = "0.1.2"
+version = "0.1.3"
 repository = "https://github.com/lights0123/ndless-rs"
 homepage = "https://lights0123.com/ndless-rust/"
 license = "MIT OR Apache-2.0"
