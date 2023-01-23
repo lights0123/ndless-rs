@@ -9,12 +9,14 @@ pub fn is_startup() -> bool {
 	unsafe { ndless_sys::nl_isstartup() > 0 }
 }
 
+
+pub use core::arch::asm;
 /// Trigger a breakpoint. If no debugger is connected (i.e. a physical calculator), the calculator
 /// will reset. This function will do nothing if compiled in release mode, allowing you to leave
 /// this in when compiling for an actual calculator.
 pub fn bkpt() {
 	if cfg!(debug_assertions) {
-		unsafe { llvm_asm!(".long 0xE1212374") }
+		unsafe { asm!(".long 0xE1212374") }
 	}
 }
 
