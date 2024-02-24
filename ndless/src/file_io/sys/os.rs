@@ -94,7 +94,7 @@ pub fn getcwd() -> io::Result<PathBuf> {
 
 pub fn chdir(p: &path::Path) -> io::Result<()> {
 	let p: &OsStr = p.as_ref();
-	let p = CString::new(p.as_bytes())?;
+	let p = CString::new(p.as_bytes()).unwrap();
 	unsafe {
 		match libc::chdir(p.as_ptr()) == (0 as c_int) {
 			true => Ok(()),

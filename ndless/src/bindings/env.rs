@@ -4,8 +4,7 @@
 //! process arguments, the current directory, and various
 //! other important directories.
 
-use alloc::vec::IntoIter;
-
+use crate::alloc::string::ToString;
 use cstr_core::CStr;
 
 use crate::io;
@@ -42,11 +41,11 @@ pub type Args = IntoIter<String>;
 /// }
 /// ```
 pub fn args() -> Args {
-	unsafe { &crate::ARGUMENTS }
+	unsafe { crate::ARGUMENTS
 		.map(|args| {
 			args.iter()
 				.map(|arg| {
-					unsafe { CStr::from_ptr(*arg) }
+					CStr::from_ptr(*arg)
 						.to_str()
 						.unwrap()
 						.to_string()
@@ -54,7 +53,8 @@ pub fn args() -> Args {
 				.collect::<Vec<_>>()
 		})
 		.unwrap_or_default()
-		.into_iter()
+		.into_iter() 
+	}
 }
 
 /// Returns the current working directory as a [`PathBuf`].
