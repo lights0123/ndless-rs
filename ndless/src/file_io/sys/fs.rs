@@ -400,7 +400,7 @@ impl DirBuilder {
 }
 
 fn cstr(path: &Path) -> io::Result<CString> {
-	Ok(CString::new(path.as_os_str().as_bytes())?)
+	Ok(CString::new(path.as_os_str().as_bytes()).unwrap())
 }
 
 impl FromInner<c_int> for File {
@@ -488,7 +488,7 @@ pub fn stat(p: &Path) -> io::Result<FileAttr> {
 }
 
 pub fn canonicalize(p: &Path) -> io::Result<PathBuf> {
-	let path = CString::new(p.as_os_str().as_bytes())?;
+	let path = CString::new(p.as_os_str().as_bytes()).unwrap();
 	let buf;
 	unsafe {
 		let r = libc::realpath(path.as_ptr(), ptr::null_mut());
